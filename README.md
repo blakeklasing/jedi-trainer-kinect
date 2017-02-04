@@ -7,6 +7,7 @@ Things TODO:
 
 - Training Mode: one droid, moving randomly, shooting lasers. 
 - Attack Mode: many droids, constantly move towards you, not shooting. deal damage when they get close to you. 
+- select items in menu by point at it and holding for x seconds
 
 ## Make a world  
 
@@ -30,7 +31,7 @@ Things TODO:
 - light saber throw
 - 2 light sabers
   - MOTION: cross arms, hands at waste 
-
+- 
 ## Make Droid  
 
 - droid models  
@@ -49,9 +50,13 @@ Things TODO:
 - Grab objects to throw at enemies
   - HL2 explosive barrels
   - MOTION: hand 
+  - highlight something grabbed or about to grab?
 - Send wave of energy  
   - knock down enemies infront of you in cone
   - MOTION: Jut out 2 hands
+  - shockwave
+- crouch
+  - MOTION: crouch
 - Heal
   - give x health
   - MOTION: raise 1 hand to air
