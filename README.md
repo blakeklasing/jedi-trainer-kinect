@@ -30,7 +30,8 @@ Things TODO:
 - particles thrown off saber when collides with laser
 - light saber throw
 - 2 light sabers
-  - MOTION: cross arms, hands at waste 
+  - MOTION: cross arms, hands at waste
+- Tutorial: https://www.youtube.com/watch?v=ZT8eutqzW5A
 - 
 ## Make Droid  
 
