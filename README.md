@@ -3,32 +3,45 @@ this is where we train jedis...
 
 Things TODO:
 
-##modes
+## modes
+
 - Training Mode: one droid, moving randomly, shooting lasers. 
 - Attack Mode: many droids, constantly move towards you, not shooting. deal damage when they get close to you. 
-##Make a world  
+
+## Make a world  
+
 - some terrain  
 - some sweet assets of starwars things  
 - trees  
 - lighting  
 - lightning?  
-##Make Jedi  
+
+## Make Jedi  
+
 - FPSController!  
 - player model  
 - 3rd person view ?  
 - some light sabers  
-#Lightsaber
+
+# Lightsaber
+
 - hold hands together to create saber
 - particles thrown off saber when collides with laser
 - light saber throw
 - 2 light sabers
   - MOTION: cross arms, hands at waste 
-##Make Droid  
+
+## Make Droid  
+
 - droid models  
 - droid behavior
-##connect Kinect  
+
+## connect Kinect  
+
 - some stuff  
-##Force Gestures  
+
+## Force Gestures  
+
 - Shoot lightning from hands  
 - damage enemies, chain to other enemies
   - MOTION: jut out 1 hand
@@ -48,6 +61,6 @@ Things TODO:
 - Force Choke
   - MOTION: raise arm 45(above head)
 
-##machine learning to find good heuristic ranges to use ?  
+## machine learning to find good heuristic ranges to use ?  
 - double exponential smoothing  
   
