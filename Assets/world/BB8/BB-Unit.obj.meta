@@ -1,0 +1,121 @@
+fileFormatVersion: 2
+guid: 393a4b3a79a581b4b929699b9734f137
+timeCreated: 1486294888
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Antena
+    100002: //RootNode
+    100004: BB8_Body
+    100006: BB8_Body_MeshPart0
+    100008: BB8_Body_MeshPart1
+    100010: BB8_Body_MeshPart2
+    100012: BB8_Body_MeshPart3
+    100014: BB8_Head
+    100016: BB8_Head_MeshPart0
+    100018: BB8_Head_MeshPart1
+    100020: Hatch_Door
+    400000: Antena
+    400002: //RootNode
+    400004: BB8_Body
+    400006: BB8_Body_MeshPart0
+    400008: BB8_Body_MeshPart1
+    400010: BB8_Body_MeshPart2
+    400012: BB8_Body_MeshPart3
+    400014: BB8_Head
+    400016: BB8_Head_MeshPart0
+    400018: BB8_Head_MeshPart1
+    400020: Hatch_Door
+    2300000: Antena
+    2300002: BB8_Body_MeshPart0
+    2300004: BB8_Body_MeshPart1
+    2300006: BB8_Body_MeshPart2
+    2300008: BB8_Body_MeshPart3
+    2300010: BB8_Head_MeshPart0
+    2300012: BB8_Head_MeshPart1
+    2300014: Hatch_Door
+    3300000: Antena
+    3300002: BB8_Body_MeshPart0
+    3300004: BB8_Body_MeshPart1
+    3300006: BB8_Body_MeshPart2
+    3300008: BB8_Body_MeshPart3
+    3300010: BB8_Head_MeshPart0
+    3300012: BB8_Head_MeshPart1
+    3300014: Hatch_Door
+    4300000: Antena
+    4300002: BB8_Body_MeshPart0
+    4300004: BB8_Body_MeshPart1
+    4300006: BB8_Body_MeshPart2
+    4300008: BB8_Body_MeshPart3
+    4300010: BB8_Head_MeshPart0
+    4300012: BB8_Head_MeshPart1
+    4300014: Hatch_Door
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
