@@ -10,6 +10,7 @@ public class EnemyAttack : MonoBehaviour
     GameObject player;
     PlayerHealth playerHealth;
     EnemyHealth enemyHealth;
+    SphereCollider collider;
     float timer;
     float timeBetweenAttacks;
 
@@ -20,6 +21,7 @@ public class EnemyAttack : MonoBehaviour
         playerHealth = player.GetComponent<PlayerHealth>();
         enemyHealth = GetComponent<EnemyHealth>();
         anim = GetComponent<Animator>();
+        collider = GetComponent<SphereCollider>();
 
         timeBetweenAttacks = Random.Range(0.2f, 2);
     }
@@ -49,9 +51,7 @@ public class EnemyAttack : MonoBehaviour
 
         if (playerHealth.currentHealth > 0)
         {
-            Vector3 gunPosition = gameObject.transform.position;
-            Quaternion gunRotation = gameObject.transform.rotation;
-            GameObject.Instantiate(laserBlast, gunPosition, gunRotation);
+            GameObject.Instantiate(laserBlast, collider.ClosestPointOnBounds(player.transform.position), gameObject.transform.rotation);    
         }
     }
 
