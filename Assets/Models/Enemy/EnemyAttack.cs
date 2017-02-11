@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-
 
 public class EnemyAttack : MonoBehaviour
 {
@@ -30,7 +28,8 @@ public class EnemyAttack : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        transform.LookAt(player.transform);
+
+        gameObject.transform.LookAt(gameObject.transform.position, gameObject.transform.up);
 
         if (timer >= timeBetweenAttacks && enemyHealth.currentHealth > 0)
         {
@@ -54,5 +53,4 @@ public class EnemyAttack : MonoBehaviour
             GameObject.Instantiate(laserBlast, collider.ClosestPointOnBounds(player.transform.position), gameObject.transform.rotation);    
         }
     }
-
 }
