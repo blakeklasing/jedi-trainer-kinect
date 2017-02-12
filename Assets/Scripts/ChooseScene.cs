@@ -3,21 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadSceneOnClick : MonoBehaviour {
+public class ChooseScene : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
+    int sceneIndex;
+
     public void LoadByIndex(int sceneIndex)
     {
+        //set the current scene
         SceneManager.LoadScene(sceneIndex);
-
     }
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
