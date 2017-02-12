@@ -1,0 +1,324 @@
+fileFormatVersion: 2
+guid: 3133f7f2cc96d374c9040545689b90d4
+timeCreated: 1486609666
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: aftarm_l
+    100002: aftarm_r
+    100004: aftfing0
+    100006: aftfing1
+    100008: backpack
+    100010: forearm0
+    100012: forearm1
+    100014: forefin0
+    100016: forefin1
+    100018: hand_lef
+    100020: hand_rig
+    100022: head
+    100024: L_should
+    100026: leftfoot
+    100028: leftleg0
+    100030: leftleg1
+    100032: neck
+    100034: R_should
+    100036: rightfoo
+    100038: rightle0
+    100040: rightle1
+    100042: //RootNode
+    100044: thumb_le
+    100046: thumb_ri
+    100048: torso_v2
+    400000: aftarm_l
+    400002: aftarm_r
+    400004: aftfing0
+    400006: aftfing1
+    400008: backpack
+    400010: forearm0
+    400012: forearm1
+    400014: forefin0
+    400016: forefin1
+    400018: hand_lef
+    400020: hand_rig
+    400022: head
+    400024: L_should
+    400026: leftfoot
+    400028: leftleg0
+    400030: leftleg1
+    400032: neck
+    400034: R_should
+    400036: rightfoo
+    400038: rightle0
+    400040: rightle1
+    400042: //RootNode
+    400044: thumb_le
+    400046: thumb_ri
+    400048: torso_v2
+    2300000: aftarm_l
+    2300002: aftarm_r
+    2300004: aftfing0
+    2300006: aftfing1
+    2300008: backpack
+    2300010: forearm0
+    2300012: forearm1
+    2300014: forefin0
+    2300016: forefin1
+    2300018: hand_lef
+    2300020: hand_rig
+    2300022: head
+    2300024: L_should
+    2300026: leftfoot
+    2300028: leftleg0
+    2300030: leftleg1
+    2300032: neck
+    2300034: R_should
+    2300036: rightfoo
+    2300038: rightle0
+    2300040: rightle1
+    2300042: thumb_le
+    2300044: thumb_ri
+    2300046: torso_v2
+    3300000: aftarm_l
+    3300002: aftarm_r
+    3300004: aftfing0
+    3300006: aftfing1
+    3300008: backpack
+    3300010: forearm0
+    3300012: forearm1
+    3300014: forefin0
+    3300016: forefin1
+    3300018: hand_lef
+    3300020: hand_rig
+    3300022: head
+    3300024: L_should
+    3300026: leftfoot
+    3300028: leftleg0
+    3300030: leftleg1
+    3300032: neck
+    3300034: R_should
+    3300036: rightfoo
+    3300038: rightle0
+    3300040: rightle1
+    3300042: thumb_le
+    3300044: thumb_ri
+    3300046: torso_v2
+    4300000: torso_v2
+    4300002: rightle0
+    4300004: rightle1
+    4300006: rightfoo
+    4300008: leftleg0
+    4300010: leftleg1
+    4300012: leftfoot
+    4300014: backpack
+    4300016: neck
+    4300018: head
+    4300020: R_should
+    4300022: forearm0
+    4300024: aftarm_r
+    4300026: hand_rig
+    4300028: forefin0
+    4300030: aftfing0
+    4300032: thumb_ri
+    4300034: L_should
+    4300036: forearm1
+    4300038: aftarm_l
+    4300040: hand_lef
+    4300042: forefin1
+    4300044: aftfing1
+    4300046: thumb_le
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'Hips' not found\n"
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton:
+    - name: Star Wars b-droid(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: aftarm_l
+      parentName: Star Wars b-droid(Clone)
+      position: {x: -24.97831, y: 124.89216, z: -154.71631}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: aftarm_r
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 59.78119, y: 124.51475, z: -190.21687}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: aftfing0
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 93.035, y: 124.64883, z: -204.07578}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: aftfing1
+      parentName: Star Wars b-droid(Clone)
+      position: {x: -58.135296, y: 125.18, z: -140.50139}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: backpack
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 10.909207, y: 120.33683, z: -180.77519}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: forearm0
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 36.215534, y: 120.740456, z: -180.09093}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: forearm1
+      parentName: Star Wars b-droid(Clone)
+      position: {x: -1.502156, y: 120.75625, z: -164.29247}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: forefin0
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 87.186066, y: 124.64737, z: -201.47806}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: forefin1
+      parentName: Star Wars b-droid(Clone)
+      position: {x: -52.18011, y: 125.17251, z: -143.1061}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hand_lef
+      parentName: Star Wars b-droid(Clone)
+      position: {x: -47.292572, y: 125.001915, z: -145.18268}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hand_rig
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 82.22924, y: 124.58593, z: -199.43144}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: head
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 18.261322, y: 147.12888, z: -170.10742}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: L_should
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 0.61943924, y: 120.413795, z: -165.4363}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: leftfoot
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 4.6525416, y: 4.493798, z: -169.27127}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: leftleg0
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 4.930087, y: 73.5159, z: -169.37845}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: leftleg1
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 4.3216023, y: 47.65155, z: -169.63835}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: neck
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 16.867245, y: 137.60197, z: -173.68494}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: R_should
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 33.762188, y: 120.396866, z: -179.31776}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: rightfoo
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 29.391727, y: 4.8585515, z: -179.63335}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: rightle0
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 28.843895, y: 73.36337, z: -179.39447}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: rightle1
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 29.064362, y: 47.651546, z: -180.00157}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: thumb_le
+      parentName: Star Wars b-droid(Clone)
+      position: {x: -51.700207, y: 126.11648, z: -147.2485}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: thumb_ri
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 81.45867, y: 126.0837, z: -203.0206}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: torso_v2
+      parentName: Star Wars b-droid(Clone)
+      position: {x: 17.380657, y: 96.23381, z: -174.09045}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -9,11 +9,6 @@ public class LaserBlast : MonoBehaviour {
     GameObject player;
     PlayerHealth playerHealth;
 
-    private void Awake()
-    {
-        this.gameObject.GetComponentInChildren<AudioSource>().Play();
-    }
-
     void Start () {
         player = GameObject.Find("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
@@ -28,5 +23,7 @@ public class LaserBlast : MonoBehaviour {
     {
         if (other.gameObject.Equals(player))
             playerHealth.TakeDamage(attackDamage);
+        else
+            Destroy(this.gameObject);
     }
 }
