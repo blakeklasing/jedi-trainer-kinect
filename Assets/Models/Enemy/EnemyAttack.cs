@@ -28,12 +28,9 @@ public class EnemyAttack : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-
-<<<<<<< HEAD
-=======
+        
         gameObject.transform.LookAt(gameObject.transform.position, gameObject.transform.up);
-
->>>>>>> e38e2e14f9c456e0abf27b2b6589d00bba28721f
+        
         if (timer >= timeBetweenAttacks && enemyHealth.currentHealth > 0)
         {
             Attack();

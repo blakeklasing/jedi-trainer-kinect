@@ -31,11 +31,8 @@ public class EnemyMovement : MonoBehaviour
         if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
             if (random)
             {
-<<<<<<< HEAD
+              
                 gameObject.transform.LookAt(player.transform.position, gameObject.transform.up);
-
-=======
->>>>>>> e38e2e14f9c456e0abf27b2b6589d00bba28721f
                 if (timer >= timeBetweenMovements)
                 {
                     int x = Random.Range(-4, 4);
