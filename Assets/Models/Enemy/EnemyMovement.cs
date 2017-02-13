@@ -3,13 +3,17 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public bool random;
+    public enum Tactics { Random, Stealth, Grunt, Sniper, Melee, Kamikazi };
+
+    public Tactics tactic;
+    public NavMeshAgent nav;
 
     Transform player;
     PlayerHealth playerHealth;
+    EnemyAttack enemyAttack;
     EnemyHealth enemyHealth;
-    NavMeshAgent nav;
     Animator anim;
+
     float timer;
     float timeBetweenMovements;
 
@@ -18,6 +22,7 @@ public class EnemyMovement : MonoBehaviour
         player = GameObject.Find("Player").transform;
         playerHealth = player.GetComponent<PlayerHealth>();
         enemyHealth = GetComponent<EnemyHealth>();
+        enemyAttack = GetComponent<EnemyAttack>();
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
@@ -29,9 +34,11 @@ public class EnemyMovement : MonoBehaviour
         timer += Time.deltaTime;
 
         if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
-            if (random)
+            if (tactic == Tactics.Random)
             {
-              
+                anim.SetFloat("Speed", 0.1f);
+
+                // Always look at the player
                 gameObject.transform.LookAt(player.transform.position, gameObject.transform.up);
                 if (timer >= timeBetweenMovements)
                 {
@@ -43,17 +50,61 @@ public class EnemyMovement : MonoBehaviour
                     timeBetweenMovements = Random.Range(1, 2);
                 }
             }
-            else
+            else if (tactic == Tactics.Grunt)
             {
-                nav.SetDestination(player.position);
+                // Hold position
+                if (enemyAttack.inMeleeRange)
+                {
+                    anim.SetFloat("Speed", 0.0f);
+                    nav.Stop();
+                }
+                // Approach slowly if in shoot range
+                else if (enemyAttack.inShootRange)
+                {
+                    anim.SetFloat("Speed", 0.3f);
+                    nav.SetDestination(player.transform.position);
+                }
+                // If player is not in range, approach quickly
+                else
+                {
+                    anim.SetFloat("Speed", 0.8f);
+                    nav.SetDestination(player.transform.position);
+                }
             }
-        else
-            nav.enabled = false;
-        Animate();
-    }
-
-    void Animate()
-    {
-        anim.SetBool("IsWalking", true);
+            else if (tactic == Tactics.Sniper)
+            {
+                // Hold position
+                if (enemyAttack.inMeleeRange)
+                {
+                    anim.SetFloat("Speed", 0.0f);
+                    nav.Stop();
+                }
+                // Hold position if in shoot range
+                else if (enemyAttack.inShootRange)
+                {
+                    anim.SetFloat("Speed", 0.0f);
+                    nav.Stop();
+                }
+                // If player is not in range, approach slowly
+                else
+                {
+                    anim.SetFloat("Speed", 0.3f);
+                    nav.SetDestination(player.transform.position);
+                }
+            }
+            else if (tactic == Tactics.Melee)
+            {
+                // Sprint towards player
+                anim.SetFloat("Speed", 0.8f);
+                nav.SetDestination(player.transform.position);
+            }
+            else if (tactic == Tactics.Kamikazi)
+            {
+                // Sprint towards player
+                anim.SetFloat("Speed", 0.8f);
+                nav.SetDestination(player.transform.position);
+            }
+            else
+                nav.enabled = false;
     }
 }
