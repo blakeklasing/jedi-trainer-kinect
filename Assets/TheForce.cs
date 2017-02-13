@@ -20,18 +20,11 @@ public class TheForce : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        /*
-        global_timer += Time.deltaTime;
-        if(lightning_on && (Time.time - lightning_timer) > 1.0f )
-        {
-            Destroy(lightning);
-        }
-        */
-        //kinect stuff!
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ForceLightning();
         }
+        ForceGrab();
     }
 
     // lightning
@@ -39,11 +32,39 @@ public class TheForce : MonoBehaviour {
     {
         lightning_instance = GameObject.Instantiate(lightning, gameObject.transform.position, gameObject.transform.rotation);
         Destroy(lightning_instance, 0.1f);
+        // find enemies in range infront of you
+        
+        // dmg each enemy
+
+
     }
 
     // grab
     public void ForceGrab()
     {
+        RaycastHit hit;
+        bool grabbed = false;
+        GameObject hit_object = null;
+
+        if(Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out hit, 10.0f) )
+        {
+            if(hit.collider.gameObject && Input.GetMouseButtonDown(0) && !grabbed)
+            {
+                hit_object = hit.collider.gameObject;
+                grabbed = true;
+                Debug.Log("hello");
+            }
+            else if(Input.GetMouseButtonDown(0) && grabbed)
+            {
+                grabbed = false;
+            }
+        }
+
+        if(grabbed && hit_object != null)
+        {
+            hit_object.transform.position.Set(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+        }
+
 
     }
 
@@ -51,6 +72,9 @@ public class TheForce : MonoBehaviour {
     public void ForcePush()
     {
 
+        // find enemies in range infront of you
+
+        // push them
     }
 
     // heal
