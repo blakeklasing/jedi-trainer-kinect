@@ -9,7 +9,7 @@ public class lightsaber : MonoBehaviour {
     public Transform end;
 
     private float textureOffset = 0f;
-    private bool saber_on = true;
+    private bool saber_on = false;
     private Vector3 endOffset;
 
     // default colors to blue
@@ -89,4 +89,15 @@ public class lightsaber : MonoBehaviour {
         }
         lineRenderer.sharedMaterials[1].SetTextureOffset("_MainTex", new Vector2(textureOffset, 0f));
     }
+
+    // change lightsaber state
+    public void toggleLightsaber(bool toggle)
+    {
+        saber_on = toggle;
+    }
+
+
+
+
+
 }

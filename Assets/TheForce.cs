@@ -10,8 +10,6 @@ public class TheForce : MonoBehaviour {
     //lightning variables
     public GameObject lightning;
     private GameObject lightning_instance;
-    bool lightning_on = false;
-    float lightning_timer = 0.0f;
 
 
 
@@ -37,47 +35,46 @@ public class TheForce : MonoBehaviour {
     }
 
     // lightning
-    void ForceLightning()
+    public void ForceLightning()
     {
-        lightning_on = true;
-        lightning_timer = Time.time;
         lightning_instance = GameObject.Instantiate(lightning, gameObject.transform.position, gameObject.transform.rotation);
         Destroy(lightning_instance, 0.1f);
     }
 
     // grab
-    void ForceGrab()
+    public void ForceGrab()
     {
 
     }
 
     // push
-    void ForcePush()
+    public void ForcePush()
     {
 
     }
 
     // heal
-    void ForceHeal()
+    public void ForceHeal()
     {
-
+        lightning_instance = GameObject.Instantiate(lightning, gameObject.transform.position, gameObject.transform.rotation);
+        Destroy(lightning_instance, 0.1f);
 
     }
 
     // future
-    void ForceFuture()
+    public void ForceFuture()
     {
 
     }
 
     // Choke
-    void ForceChoke()
+    public void ForceChoke()
     {
 
     }
 
     // crouch
-    void crouch()
+    public void crouch()
     {
 
 
