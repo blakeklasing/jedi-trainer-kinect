@@ -65,13 +65,13 @@ public class EnemyMovement : MonoBehaviour
                 else if (enemyAttack.inShootRange)
                 {
                     anim.SetFloat("Speed", 0.3f);
-                    nav.SetDestination(fpc.position);
+                    nav.SetDestination(player.position);
                 }
                 // If player is not in range, approach quickly
                 else
                 {
                     anim.SetFloat("Speed", 0.8f);
-                    nav.SetDestination(fpc.position);
+                    nav.SetDestination(player.position);
                 }
             }
             else if (tactic == Tactics.Sniper)
@@ -92,20 +92,20 @@ public class EnemyMovement : MonoBehaviour
                 else
                 {
                     anim.SetFloat("Speed", 0.3f);
-                    nav.SetDestination(fpc.position);
+                    nav.SetDestination(player.position);
                 }
             }
             else if (tactic == Tactics.Melee)
             {
                 // Sprint towards player
                 anim.SetFloat("Speed", 0.8f);
-                nav.SetDestination(fpc.position);
+                nav.SetDestination(player.position);
             }
             else if (tactic == Tactics.Kamikazi)
             {
                 // Sprint towards player
                 anim.SetFloat("Speed", 0.8f);
-                nav.SetDestination(fpc.position);
+                nav.SetDestination(player.position);
             }
             else
                 nav.enabled = false;

@@ -92,7 +92,8 @@ public class EnemyAttack : MonoBehaviour
         {
             enemyMovement.nav.Stop();
             anim.SetTrigger("Shoot");
-            GameObject blast = GameObject.Instantiate(weaponBlast, meleeCollider.ClosestPointOnBounds(player.transform.position), gameObject.transform.rotation);
+            Transform shootingHand = FindTransform(gameObject.transform, "hand.R");
+            GameObject blast = GameObject.Instantiate(weaponBlast, shootingHand.position, gameObject.transform.rotation);
             Destroy(blast, 4);
             timeUntilNextAttack = Random.Range(shootCooldown, shootCooldown + 1.0f);
         }
@@ -126,5 +127,16 @@ public class EnemyAttack : MonoBehaviour
             else if (colliderCounter == 2)
                 inMeleeRange = false;
         }
+    }
+
+    public static Transform FindTransform(Transform parent, string name)
+    {
+        if (parent.name.Equals(name)) return parent;
+        foreach (Transform child in parent)
+        {
+            Transform result = FindTransform(child, name);
+            if (result != null) return result;
+        }
+        return null;
     }
 }

@@ -22,7 +22,10 @@ public class LaserBlast : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == player)
+        {
             playerHealth.TakeDamage(attackDamage);
+            Destroy(this.gameObject);
+        }
         else
             Destroy(this.gameObject);
     }
