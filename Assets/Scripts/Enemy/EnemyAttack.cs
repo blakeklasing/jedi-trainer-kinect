@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class EnemyAttack : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class EnemyAttack : MonoBehaviour
     SphereCollider meleeCollider;
     float timeUntilNextAttack;
     float attackCooldownTimer;
+    float rangedAttackSpeed = 1;
+    float meleeAttackSpeed = 1;
+    bool isAttacking;
 
     int colliderCounter;
 
@@ -77,6 +81,9 @@ public class EnemyAttack : MonoBehaviour
         if (!inShootRange && !inMeleeRange)
             return false;
 
+        if (isAttacking)
+            return false;
+
         return true;
     }
 
@@ -84,18 +91,15 @@ public class EnemyAttack : MonoBehaviour
     {
         if (inMeleeRange)
         {
+            enemyMovement.nav.Stop();
             anim.SetTrigger("Melee");
-            playerHealth.TakeDamage(meleeDamage);
-            timeUntilNextAttack = Random.Range(meleeCooldown, meleeCooldown + 1.0f);
+            // Event animation will execute meleeAttack()
         }
         else if (inShootRange)
         {
             enemyMovement.nav.Stop();
             anim.SetTrigger("Shoot");
-            Transform shootingHand = FindTransform(gameObject.transform, "hand.R");
-            GameObject blast = GameObject.Instantiate(weaponBlast, shootingHand.position, gameObject.transform.rotation);
-            Destroy(blast, 4);
-            timeUntilNextAttack = Random.Range(shootCooldown, shootCooldown + 1.0f);
+            // Event animation will execute rangedAttack()
         }
 
         // Reset attack cooldown timer
@@ -127,9 +131,11 @@ public class EnemyAttack : MonoBehaviour
             else if (colliderCounter == 2)
                 inMeleeRange = false;
         }
+
+        colliderCounter--;
     }
 
-    public static Transform FindTransform(Transform parent, string name)
+    Transform FindTransform(Transform parent, string name)
     {
         if (parent.name.Equals(name)) return parent;
         foreach (Transform child in parent)
@@ -138,5 +144,20 @@ public class EnemyAttack : MonoBehaviour
             if (result != null) return result;
         }
         return null;
+    }
+
+
+    public void meleeAttack()
+    {
+        playerHealth.TakeDamage(meleeDamage);
+        timeUntilNextAttack = Random.Range(meleeCooldown, meleeCooldown + 1.0f);
+    }
+
+    public void rangedAttack()
+    {
+        Transform shootingHand = FindTransform(gameObject.transform, "hand.R");
+        GameObject blast = GameObject.Instantiate(weaponBlast, shootingHand.position, gameObject.transform.rotation);
+        Destroy(blast, 4);
+        timeUntilNextAttack = Random.Range(shootCooldown, shootCooldown + 1.0f);
     }
 }
