@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public GameObject weaponBlast;
+    public LaserBlast weaponBlast;
     public int shootRange;
     public int shootDamage;
     public float shootCooldown;
@@ -156,7 +156,8 @@ public class EnemyAttack : MonoBehaviour
     public void rangedAttack()
     {
         Transform shootingHand = FindTransform(gameObject.transform, "hand.R");
-        GameObject blast = GameObject.Instantiate(weaponBlast, shootingHand.position, gameObject.transform.rotation);
+        LaserBlast blast = GameObject.Instantiate(weaponBlast, shootingHand.position, gameObject.transform.rotation) as LaserBlast;
+        blast.attackDamage = shootDamage;
         Destroy(blast, 4);
         timeUntilNextAttack = Random.Range(shootCooldown, shootCooldown + 1.0f);
     }
