@@ -3,18 +3,18 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int startingHealth = 100;                            // The amount of health the player starts the game with.
-    public int currentHealth;                                   // The current health the player has.
-    public Slider healthSlider;                                 // Reference to the UI's health bar.
-    public Image damageImage;                                   // Reference to an image to flash on the screen on being hurt.
-    public AudioClip deathClip;                                 // The audio clip to play when the player dies.
-    public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
-    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
+    public int startingHealth = 100;
+    public int currentHealth;
+    public Slider healthSlider;
+    public Image damageImage; 
+    public AudioClip deathClip;
+    public float flashSpeed = 5f;
+    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
 
-    Animator anim;                                              // Reference to the Animator component.
-    AudioSource playerAudio;                                    // Reference to the AudioSource component.
-    bool isDead;                                                // Whether the player is dead.
-    bool damaged;                                               // True when the player gets damaged.
+    Animator anim;
+    AudioSource playerAudio;
+    bool isDead;
+    bool damaged;
 
     void Awake()
     {
@@ -44,12 +44,8 @@ public class PlayerHealth : MonoBehaviour
         // Play the hurt sound effect.
         playerAudio.Play();
 
-        // If the player has lost all it's health and the death flag hasn't been set yet...
         if (currentHealth <= 0 && !isDead)
-        {
-            // ... it should die.
             Death();
-        }
     }
 
     void Death()
