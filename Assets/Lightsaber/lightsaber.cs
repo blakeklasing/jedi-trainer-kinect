@@ -9,13 +9,46 @@ public class lightsaber : MonoBehaviour {
     public Transform end;
 
     private float textureOffset = 0f;
-    private bool saber_on = true;
+    private bool saber_on = false;
     private Vector3 endOffset;
+
+    // default colors to blue
+    public static int color_choice = 0;
+    private Color color_1 = new Color(11, 58, 188);
+    private Color color_2 = new Color(3, 44, 124);
 
 
 	// Use this for initialization
 	void Start () {
+        
         lineRenderer = GetComponent<LineRenderer>();
+
+        /*
+        Gradient g;
+        GradientColorKey[] gck;
+        GradientAlphaKey[] gak;
+        g = new Gradient();
+        gck = new GradientColorKey[2];
+        gck[0].color = Color.red;
+        gck[0].time = 0.0F;
+        gck[1].color = Color.blue;
+        gck[1].time = 1.0F;
+
+        gak = new GradientAlphaKey[2];
+        gak[0].alpha = 1.0F;
+        gak[0].time = 0.0F;
+        gak[1].alpha = 0.0F;
+        gak[1].time = 1.0F;
+        g.SetKeys(gck, gak);
+        Debug.Log(g.Evaluate(0.25F));
+        lineRenderer.colorGradient = g;
+
+        lineRenderer.startColor = color_1;
+        lineRenderer.endColor = color_2;
+        
+
+        //lineRenderer.colorGradient = g;
+        */
         endOffset = end.localPosition;
 	}
 	
@@ -25,10 +58,10 @@ public class lightsaber : MonoBehaviour {
         //kinect stuff!
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            saber_on = !saber_on;            
+            saber_on = !saber_on;
         }
 
-        if(saber_on)
+        if (saber_on)
         {
             // extend laser
             end.localPosition = Vector3.Lerp(end.localPosition, endOffset, Time.deltaTime * 10f);
@@ -41,12 +74,14 @@ public class lightsaber : MonoBehaviour {
 
             //play sound
         }
+
+
         //update rendered line
         lineRenderer.SetPosition(0, start.position);
         lineRenderer.SetPosition(1, end.position);
 
         //move texture
-        textureOffset = textureOffset - Time.deltaTime * 2f;
+        textureOffset = textureOffset - Time.deltaTime * 4f;
                                                         //bigger numbers go faster
         if( textureOffset < -10f)
         {
@@ -54,4 +89,15 @@ public class lightsaber : MonoBehaviour {
         }
         lineRenderer.sharedMaterials[1].SetTextureOffset("_MainTex", new Vector2(textureOffset, 0f));
     }
+
+    // change lightsaber state
+    public void toggleLightsaber(bool toggle)
+    {
+        saber_on = toggle;
+    }
+
+
+
+
+
 }

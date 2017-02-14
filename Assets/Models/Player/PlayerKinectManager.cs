@@ -10,15 +10,63 @@ public class PlayerKinectManager : MonoBehaviour {
     private bool readyToShoot = false;
     public GameObject eggPrefab;
     public FirstPersonController fpsC;
+    
+    //
+    public TheForce the_force;
 
-	// Use this for initialization
-	void Start () {
+    //light saber variables
+    public lightsaber light_saber;
+    public bool lightsaber_on = false;
+
+    // joint locations
+    Vector3 localRHand;
+    Vector3 localLHand;
+    Vector3 localHead;
+    Vector3 globalRHand;
+    Vector3 globalLHand;
+
+
+    // Use this for initialization
+    void Start () {
         km = this.gameObject.GetComponent<KinectManager>();
 	}
 
     // Update is called once per frame
     void Update() {
-        lightSaber();
+
+        localRHand = km.GetJointLocalPosition(km.GetPlayer1ID(), 11);
+        localLHand = km.GetJointLocalPosition(km.GetPlayer1ID(), 7);
+        localHead = km.GetJointLocalPosition(km.GetPlayer1ID(), 3);
+        globalRHand = km.GetJointPosition(km.GetPlayer1ID(), 11);
+        globalLHand = km.GetJointPosition(km.GetPlayer1ID(), 7);
+        
+        //check lightsaber
+        checkLightsaber();
+        if (!lightsaber_on)
+        {
+            if( checkLightning() )
+            {
+                // do lightning
+                the_force.ForceLightning();
+            }
+            else if(checkheal())
+            {
+                the_force.ForceHeal();
+            }
+            
+        }
+
+
+
+
+
+        //Debug.Log("X distance: " + Mathf.Abs(globalRHand.x - globalLHand.x) + " Y: " + Mathf.Abs(globalRHand.y - globalLHand.y));
+        Debug.Log(Vector3.Distance(globalRHand, globalLHand));
+
+
+
+
+        //lightSaber();
 
         /*
         Vector3 leftElbow = km.GetJointPosition(km.GetPlayer1ID(), 5);
@@ -44,22 +92,80 @@ public class PlayerKinectManager : MonoBehaviour {
         if (rightElbow.z > leftElbow.z && Mathf.Abs(leftElbow.z - rightElbow.z) >= .5)
             fpsC.TurnRight();
             */
+
+        
+
+
 	}
 
-    void lightSaber()
+    void checkLightsaber()
     {
-        Vector3 rightHand = km.GetJointPosition(km.GetPlayer1ID(), 11);
-        Vector3 leftHand = km.GetJointPosition(km.GetPlayer1ID(), 7);
-
         // Make sure users hand are on top of each other
-        float distance = Vector3.Distance(rightHand, leftHand);
-        //Debug.Log("Right hand: " + rightHand.y + " Lefhand: " + leftHand.y);
-        Debug.Log(Mathf.Abs(rightHand.y - leftHand.y));
-        //if (Vector3.Distance(rightHand, leftHand) < 0.15)
-        if(Mathf.Abs(rightHand.y - leftHand.y) < 0.15 && Mathf.Abs(rightHand.y - leftHand.y) > 0.03
-            && Mathf.Abs(rightHand.x - leftHand.x) < 0.15 && Mathf.Abs(rightHand.z - leftHand.z) < 0.15)
+        float distance = Vector3.Distance(globalRHand, globalLHand);
+        //Debug.Log("Right hand: " + globalRHand.y + " Lefhand: " + globalLHand.y);
+        //Debug.Log(Mathf.Abs(globalRHand.y - globalLHand.y));
+        //if (Vector3.Distance(globalRHand, globalLHand) < 0.15)
+        //Debug.Log( "Local R: " + localRHand.ToString() + " L: " + localLHand.ToString());
+        
+        //check less strict rules for having lightsaber out
+        if (lightsaber_on)
         {
-            Debug.Log("GREEN: " + distance);
+            if (distance < 0.2f)
+                return;
+
+            if (!( Mathf.Abs(globalRHand.y - globalLHand.y) < 0.3f && Mathf.Abs(globalRHand.y - globalLHand.y) > 0.03f
+                && Mathf.Abs(globalRHand.x - globalLHand.x) < 0.3f && Mathf.Abs(globalRHand.z - globalLHand.z) < 0.8f ))
+            {
+                // turn lightsaber off
+                lightsaber_on = false;
+                light_saber.toggleLightsaber(lightsaber_on);
+            }
+        }
+        else
+        {
+
+            if (Mathf.Abs(globalRHand.y - globalLHand.y) < 0.15f && Mathf.Abs(globalRHand.y - globalLHand.y) > 0.03f
+                && Mathf.Abs(globalRHand.x - globalLHand.x) < 0.15f && Mathf.Abs(globalRHand.z - globalLHand.z) < 0.15f)
+            {
+                Debug.Log("GREEN: " + distance);
+                // turn lightsaber on
+                lightsaber_on = true;
+                light_saber.toggleLightsaber(lightsaber_on);
+            }
+        }
+
+
+
+    }
+
+    bool checkLightning()
+    {
+        
+
+        if (    ((localRHand.y < 0.04f) && (localRHand.y > 0.0f) && (localLHand.y < 0.00f) && (localRHand.x < 0.01f && localRHand.x > -0.01f) )
+            || ((localLHand.y < 0.04f) && (localLHand.y > 0.0f) && (localRHand.y < 0.00f)) )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
+
+    bool checkheal()
+    {
+
+        // check that both hands are above head
+        if ( (localRHand.y - localHead.y) > 0.0 && (localRHand.y - localHead.y) > 0.0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
 }
