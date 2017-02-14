@@ -9,8 +9,7 @@ public class TheForce : MonoBehaviour {
 
     //lightning variables
     public GameObject lightning;
-    private GameObject lightning_instance;
-
+    private GameObject lightningObject;
 
 
     // Use this for initialization
@@ -20,22 +19,27 @@ public class TheForce : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        //DEBUG
+        if (Input.GetKeyDown(KeyCode.A))
         {
             ForceLightning();
+            //ForceGrab();
         }
-        ForceGrab();
+        //ForceGrab();
+        //DEBUG
+
+
     }
 
     // lightning
     public void ForceLightning()
     {
-        lightning_instance = GameObject.Instantiate(lightning, gameObject.transform.position, gameObject.transform.rotation);
-        Destroy(lightning_instance, 0.1f);
+        lightningObject = GameObject.Instantiate(lightning, gameObject.transform.position, gameObject.transform.rotation);
+        Destroy(lightningObject, 0.3f);
         // find enemies in range infront of you
         
         // dmg each enemy
-
 
     }
 
@@ -86,8 +90,8 @@ public class TheForce : MonoBehaviour {
     // heal
     public void ForceHeal()
     {
-        lightning_instance = GameObject.Instantiate(lightning, gameObject.transform.position, gameObject.transform.rotation);
-        Destroy(lightning_instance, 0.1f);
+
+        this.GetComponent<PlayerHealth>().heal(25);
 
     }
 
