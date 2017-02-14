@@ -7,9 +7,16 @@ public class TheForce : MonoBehaviour {
     
     float global_timer;
 
-    //lightning variables
+
+    //lightning prefab
     public GameObject lightning;
+    // lightning instance
     private GameObject lightningObject;
+
+    // heal prefab
+    public GameObject heal;
+    // heal instance
+    private GameObject healObject;
 
     // Use this for initialization
     void Start () {
@@ -23,7 +30,11 @@ public class TheForce : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.A))
         {
             ForceLightning();
-            //ForceGrab();
+            ForceHeal();
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            ForceGrab();
         }
 
 
@@ -88,6 +99,8 @@ public class TheForce : MonoBehaviour {
     public void ForceHeal()
     {
         this.GetComponent<PlayerHealth>().heal(25);
+        healObject = GameObject.Instantiate(heal, gameObject.transform.position, gameObject.transform.rotation);
+        Destroy(healObject, 1.0f);
     }
 
     // future
