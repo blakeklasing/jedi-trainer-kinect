@@ -1,0 +1,434 @@
+fileFormatVersion: 2
+guid: ce3607e043c5c1948bd001dfa4e9c50d
+timeCreated: 1486914633
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Mesh10_ma_jangoFe1_skp351_1_Model
+    100004: Mesh11_ma_jangoFe1_skp351_1_Model
+    100006: Mesh12_ma_jangoFe1_skp351_1_Model
+    100008: Mesh13_ma_jangoFe1_skp351_1_Model
+    100010: Mesh14_ma_jangoFe1_skp351_1_Model
+    100012: Mesh15_ma_jangoFe1_skp351_1_Model
+    100014: Mesh16_ma_jangoFe1_skp351_1_Model
+    100016: Mesh17_ma_jangoFe1_skp351_1_Model
+    100018: Mesh18_ma_jangoFe1_skp351_1_Model
+    100020: Mesh19_ma_jangoFe1_skp351_1_Model
+    100022: Mesh1_ma_jangoF0_1_skp351_1_Model
+    100024: Mesh20_ma_jangoFe1_skp351_1_Model
+    100026: Mesh21_ma_jangoFe1_skp351_1_Model
+    100028: Mesh22_ma_jangoFe1_skp351_1_Model
+    100030: Mesh23_ma_jangoFe1_skp351_1_Model
+    100032: Mesh24_ma_jangoFe1_skp351_1_Model
+    100034: Mesh25_ma_jangoFe1_skp351_1_Model
+    100036: Mesh26_ma_jangoFe1_skp351_1_Model
+    100038: Mesh27_ma_jangoFe1_skp351_1_Model
+    100040: Mesh28_ma_jangoFe1_skp351_1_Model
+    100042: Mesh29_ma_jangoFe1_skp351_1_Model
+    100044: Mesh2_ma_jangoFe1_skp351_1_Model
+    100046: Mesh30_ma_jangoFe1_skp351_1_Model
+    100048: Mesh31_ma_jangoFe1_skp351_1_Model
+    100050: Mesh32_ma_jangoFe1_skp351_1_Model
+    100052: Mesh33_ma_jangoFe1_skp351_1_Model
+    100054: Mesh34_ma_jangoFe1_skp351_1_Model
+    100056: Mesh35_ma_jangoFe1_skp351_1_Model
+    100058: Mesh3_ma_jangoFe1_skp351_1_Model
+    100060: Mesh4_ma_jangoFe1_skp351_1_Model
+    100062: Mesh5_ma_jangoFe1_skp351_1_Model
+    100064: Mesh6_ma_jangoFe1_skp351_1_Model
+    100066: Mesh7_ma_jangoFe1_skp351_1_Model
+    100068: Mesh8_ma_jangoFe1_skp351_1_Model
+    100070: Mesh9_ma_jangoFe1_skp351_1_Model
+    400000: //RootNode
+    400002: Mesh10_ma_jangoFe1_skp351_1_Model
+    400004: Mesh11_ma_jangoFe1_skp351_1_Model
+    400006: Mesh12_ma_jangoFe1_skp351_1_Model
+    400008: Mesh13_ma_jangoFe1_skp351_1_Model
+    400010: Mesh14_ma_jangoFe1_skp351_1_Model
+    400012: Mesh15_ma_jangoFe1_skp351_1_Model
+    400014: Mesh16_ma_jangoFe1_skp351_1_Model
+    400016: Mesh17_ma_jangoFe1_skp351_1_Model
+    400018: Mesh18_ma_jangoFe1_skp351_1_Model
+    400020: Mesh19_ma_jangoFe1_skp351_1_Model
+    400022: Mesh1_ma_jangoF0_1_skp351_1_Model
+    400024: Mesh20_ma_jangoFe1_skp351_1_Model
+    400026: Mesh21_ma_jangoFe1_skp351_1_Model
+    400028: Mesh22_ma_jangoFe1_skp351_1_Model
+    400030: Mesh23_ma_jangoFe1_skp351_1_Model
+    400032: Mesh24_ma_jangoFe1_skp351_1_Model
+    400034: Mesh25_ma_jangoFe1_skp351_1_Model
+    400036: Mesh26_ma_jangoFe1_skp351_1_Model
+    400038: Mesh27_ma_jangoFe1_skp351_1_Model
+    400040: Mesh28_ma_jangoFe1_skp351_1_Model
+    400042: Mesh29_ma_jangoFe1_skp351_1_Model
+    400044: Mesh2_ma_jangoFe1_skp351_1_Model
+    400046: Mesh30_ma_jangoFe1_skp351_1_Model
+    400048: Mesh31_ma_jangoFe1_skp351_1_Model
+    400050: Mesh32_ma_jangoFe1_skp351_1_Model
+    400052: Mesh33_ma_jangoFe1_skp351_1_Model
+    400054: Mesh34_ma_jangoFe1_skp351_1_Model
+    400056: Mesh35_ma_jangoFe1_skp351_1_Model
+    400058: Mesh3_ma_jangoFe1_skp351_1_Model
+    400060: Mesh4_ma_jangoFe1_skp351_1_Model
+    400062: Mesh5_ma_jangoFe1_skp351_1_Model
+    400064: Mesh6_ma_jangoFe1_skp351_1_Model
+    400066: Mesh7_ma_jangoFe1_skp351_1_Model
+    400068: Mesh8_ma_jangoFe1_skp351_1_Model
+    400070: Mesh9_ma_jangoFe1_skp351_1_Model
+    2300000: Mesh10_ma_jangoFe1_skp351_1_Model
+    2300002: Mesh11_ma_jangoFe1_skp351_1_Model
+    2300004: Mesh12_ma_jangoFe1_skp351_1_Model
+    2300006: Mesh13_ma_jangoFe1_skp351_1_Model
+    2300008: Mesh14_ma_jangoFe1_skp351_1_Model
+    2300010: Mesh15_ma_jangoFe1_skp351_1_Model
+    2300012: Mesh16_ma_jangoFe1_skp351_1_Model
+    2300014: Mesh17_ma_jangoFe1_skp351_1_Model
+    2300016: Mesh18_ma_jangoFe1_skp351_1_Model
+    2300018: Mesh19_ma_jangoFe1_skp351_1_Model
+    2300020: Mesh1_ma_jangoF0_1_skp351_1_Model
+    2300022: Mesh20_ma_jangoFe1_skp351_1_Model
+    2300024: Mesh21_ma_jangoFe1_skp351_1_Model
+    2300026: Mesh22_ma_jangoFe1_skp351_1_Model
+    2300028: Mesh23_ma_jangoFe1_skp351_1_Model
+    2300030: Mesh24_ma_jangoFe1_skp351_1_Model
+    2300032: Mesh25_ma_jangoFe1_skp351_1_Model
+    2300034: Mesh26_ma_jangoFe1_skp351_1_Model
+    2300036: Mesh27_ma_jangoFe1_skp351_1_Model
+    2300038: Mesh28_ma_jangoFe1_skp351_1_Model
+    2300040: Mesh29_ma_jangoFe1_skp351_1_Model
+    2300042: Mesh2_ma_jangoFe1_skp351_1_Model
+    2300044: Mesh30_ma_jangoFe1_skp351_1_Model
+    2300046: Mesh31_ma_jangoFe1_skp351_1_Model
+    2300048: Mesh32_ma_jangoFe1_skp351_1_Model
+    2300050: Mesh33_ma_jangoFe1_skp351_1_Model
+    2300052: Mesh34_ma_jangoFe1_skp351_1_Model
+    2300054: Mesh35_ma_jangoFe1_skp351_1_Model
+    2300056: Mesh3_ma_jangoFe1_skp351_1_Model
+    2300058: Mesh4_ma_jangoFe1_skp351_1_Model
+    2300060: Mesh5_ma_jangoFe1_skp351_1_Model
+    2300062: Mesh6_ma_jangoFe1_skp351_1_Model
+    2300064: Mesh7_ma_jangoFe1_skp351_1_Model
+    2300066: Mesh8_ma_jangoFe1_skp351_1_Model
+    2300068: Mesh9_ma_jangoFe1_skp351_1_Model
+    3300000: Mesh10_ma_jangoFe1_skp351_1_Model
+    3300002: Mesh11_ma_jangoFe1_skp351_1_Model
+    3300004: Mesh12_ma_jangoFe1_skp351_1_Model
+    3300006: Mesh13_ma_jangoFe1_skp351_1_Model
+    3300008: Mesh14_ma_jangoFe1_skp351_1_Model
+    3300010: Mesh15_ma_jangoFe1_skp351_1_Model
+    3300012: Mesh16_ma_jangoFe1_skp351_1_Model
+    3300014: Mesh17_ma_jangoFe1_skp351_1_Model
+    3300016: Mesh18_ma_jangoFe1_skp351_1_Model
+    3300018: Mesh19_ma_jangoFe1_skp351_1_Model
+    3300020: Mesh1_ma_jangoF0_1_skp351_1_Model
+    3300022: Mesh20_ma_jangoFe1_skp351_1_Model
+    3300024: Mesh21_ma_jangoFe1_skp351_1_Model
+    3300026: Mesh22_ma_jangoFe1_skp351_1_Model
+    3300028: Mesh23_ma_jangoFe1_skp351_1_Model
+    3300030: Mesh24_ma_jangoFe1_skp351_1_Model
+    3300032: Mesh25_ma_jangoFe1_skp351_1_Model
+    3300034: Mesh26_ma_jangoFe1_skp351_1_Model
+    3300036: Mesh27_ma_jangoFe1_skp351_1_Model
+    3300038: Mesh28_ma_jangoFe1_skp351_1_Model
+    3300040: Mesh29_ma_jangoFe1_skp351_1_Model
+    3300042: Mesh2_ma_jangoFe1_skp351_1_Model
+    3300044: Mesh30_ma_jangoFe1_skp351_1_Model
+    3300046: Mesh31_ma_jangoFe1_skp351_1_Model
+    3300048: Mesh32_ma_jangoFe1_skp351_1_Model
+    3300050: Mesh33_ma_jangoFe1_skp351_1_Model
+    3300052: Mesh34_ma_jangoFe1_skp351_1_Model
+    3300054: Mesh35_ma_jangoFe1_skp351_1_Model
+    3300056: Mesh3_ma_jangoFe1_skp351_1_Model
+    3300058: Mesh4_ma_jangoFe1_skp351_1_Model
+    3300060: Mesh5_ma_jangoFe1_skp351_1_Model
+    3300062: Mesh6_ma_jangoFe1_skp351_1_Model
+    3300064: Mesh7_ma_jangoFe1_skp351_1_Model
+    3300066: Mesh8_ma_jangoFe1_skp351_1_Model
+    3300068: Mesh9_ma_jangoFe1_skp351_1_Model
+    4300000: Mesh10_ma_jangoFe1_skp351_1_Model
+    4300002: Mesh11_ma_jangoFe1_skp351_1_Model
+    4300004: Mesh12_ma_jangoFe1_skp351_1_Model
+    4300006: Mesh13_ma_jangoFe1_skp351_1_Model
+    4300008: Mesh14_ma_jangoFe1_skp351_1_Model
+    4300010: Mesh15_ma_jangoFe1_skp351_1_Model
+    4300012: Mesh16_ma_jangoFe1_skp351_1_Model
+    4300014: Mesh17_ma_jangoFe1_skp351_1_Model
+    4300016: Mesh18_ma_jangoFe1_skp351_1_Model
+    4300018: Mesh19_ma_jangoFe1_skp351_1_Model
+    4300020: Mesh1_ma_jangoF0_1_skp351_1_Model
+    4300022: Mesh20_ma_jangoFe1_skp351_1_Model
+    4300024: Mesh21_ma_jangoFe1_skp351_1_Model
+    4300026: Mesh22_ma_jangoFe1_skp351_1_Model
+    4300028: Mesh23_ma_jangoFe1_skp351_1_Model
+    4300030: Mesh24_ma_jangoFe1_skp351_1_Model
+    4300032: Mesh25_ma_jangoFe1_skp351_1_Model
+    4300034: Mesh26_ma_jangoFe1_skp351_1_Model
+    4300036: Mesh27_ma_jangoFe1_skp351_1_Model
+    4300038: Mesh28_ma_jangoFe1_skp351_1_Model
+    4300040: Mesh29_ma_jangoFe1_skp351_1_Model
+    4300042: Mesh2_ma_jangoFe1_skp351_1_Model
+    4300044: Mesh30_ma_jangoFe1_skp351_1_Model
+    4300046: Mesh31_ma_jangoFe1_skp351_1_Model
+    4300048: Mesh32_ma_jangoFe1_skp351_1_Model
+    4300050: Mesh33_ma_jangoFe1_skp351_1_Model
+    4300052: Mesh34_ma_jangoFe1_skp351_1_Model
+    4300054: Mesh35_ma_jangoFe1_skp351_1_Model
+    4300056: Mesh3_ma_jangoFe1_skp351_1_Model
+    4300058: Mesh4_ma_jangoFe1_skp351_1_Model
+    4300060: Mesh5_ma_jangoFe1_skp351_1_Model
+    4300062: Mesh6_ma_jangoFe1_skp351_1_Model
+    4300064: Mesh7_ma_jangoFe1_skp351_1_Model
+    4300066: Mesh8_ma_jangoFe1_skp351_1_Model
+    4300068: Mesh9_ma_jangoFe1_skp351_1_Model
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'Hips' not found\n"
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton:
+    - name: JF(Clone)
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh1_ma_jangoF0_1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh2_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh3_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh4_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh5_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh6_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh7_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh8_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh9_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh10_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh11_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh12_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh13_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh14_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh15_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh16_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh17_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh18_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh19_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh20_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh21_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh22_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh23_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh24_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh25_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh26_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh27_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh28_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh29_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh30_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh31_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh32_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh33_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh34_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh35_ma_jangoFe1_skp351_1_Model
+      parentName: JF(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
