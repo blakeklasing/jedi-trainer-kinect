@@ -45,13 +45,19 @@ public class TheForce : MonoBehaviour {
         RaycastHit hit;
         bool grabbed = false;
         GameObject hit_object = null;
+        Vector3 jedi_pos = gameObject.transform.position;
+        //jedi_pos.y = jedi_pos.y;
 
-        if(Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out hit, 10.0f) )
+        if (Physics.Raycast(jedi_pos, gameObject.transform.forward*100, out hit, 10.0f))
         {
+
+
+            Debug.DrawRay(jedi_pos, gameObject.transform.forward * 1000);//gameObject.transform.rotation);
             if(hit.collider.gameObject && Input.GetMouseButtonDown(0) && !grabbed)
             {
                 hit_object = hit.collider.gameObject;
                 grabbed = true;
+                Debug.DrawRay(jedi_pos, gameObject.transform.forward * 1000, Color.blue);
                 Debug.Log("hello");
             }
             else if(Input.GetMouseButtonDown(0) && grabbed)
