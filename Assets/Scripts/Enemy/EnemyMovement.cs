@@ -9,7 +9,7 @@ public class EnemyMovement : MonoBehaviour
     public NavMeshAgent nav;
 
     Transform player;
-    Transform fpc;
+    Transform waypoint;
     PlayerHealth playerHealth;
     EnemyAttack enemyAttack;
     EnemyHealth enemyHealth;
@@ -17,11 +17,12 @@ public class EnemyMovement : MonoBehaviour
 
     float timer;
     float timeBetweenMovements;
+    bool reachedWaypoint = false;
 
     void Awake()
     {
         player = GameObject.Find("Player").transform;
-        fpc = GameObject.Find("FirstPersonCharacter").transform;
+        waypoint = GameObject.Find("MovementWayPoint").transform;
         playerHealth = player.GetComponent<PlayerHealth>();
         enemyHealth = GetComponent<EnemyHealth>();
         enemyAttack = GetComponent<EnemyAttack>();
@@ -34,9 +35,6 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-
-        // Always look at the player
-        gameObject.transform.LookAt(new Vector3(player.position.x, gameObject.transform.position.y, player.position.z));
 
         if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
             if (tactic == Tactics.Random)
@@ -53,61 +51,116 @@ public class EnemyMovement : MonoBehaviour
                     timeBetweenMovements = Random.Range(1, 2);
                 }
             }
-            else if (tactic == Tactics.Grunt)
-            {
-                // Hold position
-                if (enemyAttack.inMeleeRange)
-                {
-                    anim.SetFloat("Speed", 0.0f);
-                    nav.Stop();
-                }
-                // Approach slowly if in shoot range
-                else if (enemyAttack.inShootRange)
-                {
-                    anim.SetFloat("Speed", 0.3f);
-                    nav.SetDestination(player.position);
-                }
-                // If player is not in range, approach quickly
-                else
-                {
-                    anim.SetFloat("Speed", 0.8f);
-                    nav.SetDestination(player.position);
-                }
-            }
-            else if (tactic == Tactics.Sniper)
-            {
-                // Hold position
-                if (enemyAttack.inMeleeRange)
-                {
-                    anim.SetFloat("Speed", 0.0f);
-                    nav.Stop();
-                }
-                // Hold position if in shoot range
-                else if (enemyAttack.inShootRange)
-                {
-                    anim.SetFloat("Speed", 0.0f);
-                    nav.Stop();
-                }
-                // If player is not in range, approach slowly
-                else
-                {
-                    anim.SetFloat("Speed", 0.3f);
-                    nav.SetDestination(player.position);
-                }
-            }
-            else if (tactic == Tactics.Melee)
-            {
-                // Sprint towards player
-                anim.SetFloat("Speed", 0.8f);
-                nav.SetDestination(player.position);
-            }
-            else if (tactic == Tactics.Kamikazi)
-            {
-                // Sprint towards player
-                anim.SetFloat("Speed", 0.8f);
-                nav.SetDestination(player.position);
-            }
             else
-                nav.enabled = false;
+            {
+                if (Vector3.Distance(waypoint.position, gameObject.transform.position) < 2)
+                    reachedWaypoint = true;
+
+                if (tactic == Tactics.Grunt)
+                {
+                    // Hold position
+                    if (enemyAttack.inMeleeRange)
+                    {
+                        anim.SetFloat("Speed", 0.0f);
+                        gameObject.transform.LookAt(new Vector3(player.position.x, gameObject.transform.position.y, player.position.z));
+                        nav.Stop();
+                    }
+                    // Approach slowly if in shoot range
+                    else if (enemyAttack.inShootRange)
+                    {
+                        anim.SetFloat("Speed", 0.3f);
+                        gameObject.transform.LookAt(new Vector3(player.position.x, gameObject.transform.position.y, player.position.z));
+                        nav.SetDestination(player.position);
+                    }
+                    // If player is not in range, approach quickly
+                    else
+                    {
+                        anim.SetFloat("Speed", 0.8f);
+                        if (reachedWaypoint)
+                        {
+                            gameObject.transform.LookAt(new Vector3(player.position.x, gameObject.transform.position.y, player.position.z));
+                            nav.SetDestination(player.position);
+                        }
+                        else
+                        {
+                            gameObject.transform.LookAt(new Vector3(waypoint.position.x, gameObject.transform.position.y, waypoint.position.z));
+                            nav.SetDestination(waypoint.position);
+                        }
+                    }
+                }
+                else if (tactic == Tactics.Sniper)
+                {
+                    // Hold position
+                    if (enemyAttack.inMeleeRange)
+                    {
+                        gameObject.transform.LookAt(new Vector3(player.position.x, gameObject.transform.position.y, player.position.z));
+                        anim.SetFloat("Speed", 0.0f);
+                        nav.Stop();
+                    }
+                    // Hold position if in shoot range
+                    else if (enemyAttack.inShootRange)
+                    {
+                        gameObject.transform.LookAt(new Vector3(player.position.x, gameObject.transform.position.y, player.position.z));
+                        anim.SetFloat("Speed", 0.0f);
+                        nav.Stop();
+                    }
+                    // If player is not in range, approach slowly
+                    else
+                    {
+                        anim.SetFloat("Speed", 0.3f);
+                        if (reachedWaypoint)
+                        {
+                            gameObject.transform.LookAt(new Vector3(player.position.x, gameObject.transform.position.y, player.position.z));
+                            nav.SetDestination(player.position);
+                        }
+                        else
+                        {
+                            gameObject.transform.LookAt(new Vector3(waypoint.position.x, gameObject.transform.position.y, waypoint.position.z));
+                            nav.SetDestination(waypoint.position);
+                        }
+                    }
+                }
+                else if (tactic == Tactics.Melee)
+                {
+                    // Hold position
+                    if (enemyAttack.inMeleeRange)
+                    {
+                        gameObject.transform.LookAt(new Vector3(player.position.x, gameObject.transform.position.y, player.position.z));
+                        anim.SetFloat("Speed", 0.0f);
+                        nav.Stop();
+                    }
+                    else if (reachedWaypoint)
+                    {
+                        gameObject.transform.LookAt(new Vector3(player.position.x, gameObject.transform.position.y, player.position.z));
+                        anim.SetFloat("Speed", 0.8f);
+                        nav.SetDestination(player.position);
+                    }
+                    else
+                    {
+                        // Sprint towards the waypoint
+                        gameObject.transform.LookAt(new Vector3(waypoint.position.x, gameObject.transform.position.y, waypoint.position.z));
+                        anim.SetFloat("Speed", 0.8f);
+                        nav.SetDestination(waypoint.position);
+                    }
+                }
+                else if (tactic == Tactics.Kamikazi)
+                {
+                    if (reachedWaypoint)
+                    {
+                        gameObject.transform.LookAt(new Vector3(player.position.x, gameObject.transform.position.y, player.position.z));
+                        anim.SetFloat("Speed", 0.8f);
+                        nav.SetDestination(player.position);
+                    }
+                    else
+                    {
+                        // Sprint towards the waypoint
+                        gameObject.transform.LookAt(new Vector3(waypoint.position.x, gameObject.transform.position.y, waypoint.position.z));
+                        anim.SetFloat("Speed", 0.8f);
+                        nav.SetDestination(waypoint.position);
+                    }
+                }
+                else
+                    nav.enabled = false;
+            }
     }
 }
