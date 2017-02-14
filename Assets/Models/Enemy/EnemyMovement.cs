@@ -9,6 +9,7 @@ public class EnemyMovement : MonoBehaviour
     public NavMeshAgent nav;
 
     Transform player;
+    Transform fpc;
     PlayerHealth playerHealth;
     EnemyAttack enemyAttack;
     EnemyHealth enemyHealth;
@@ -20,6 +21,7 @@ public class EnemyMovement : MonoBehaviour
     void Awake()
     {
         player = GameObject.Find("Player").transform;
+        fpc = GameObject.Find("FirstPersonCharacter").transform;
         playerHealth = player.GetComponent<PlayerHealth>();
         enemyHealth = GetComponent<EnemyHealth>();
         enemyAttack = GetComponent<EnemyAttack>();
@@ -33,13 +35,14 @@ public class EnemyMovement : MonoBehaviour
     {
         timer += Time.deltaTime;
 
+        // Always look at the player
+        gameObject.transform.LookAt(new Vector3(player.position.x, gameObject.transform.position.y, player.position.z));
+
         if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
             if (tactic == Tactics.Random)
             {
                 anim.SetFloat("Speed", 0.1f);
 
-                // Always look at the player
-                gameObject.transform.LookAt(player.transform.position, gameObject.transform.up);
                 if (timer >= timeBetweenMovements)
                 {
                     int x = Random.Range(-4, 4);
@@ -62,13 +65,13 @@ public class EnemyMovement : MonoBehaviour
                 else if (enemyAttack.inShootRange)
                 {
                     anim.SetFloat("Speed", 0.3f);
-                    nav.SetDestination(player.transform.position);
+                    nav.SetDestination(fpc.position);
                 }
                 // If player is not in range, approach quickly
                 else
                 {
                     anim.SetFloat("Speed", 0.8f);
-                    nav.SetDestination(player.transform.position);
+                    nav.SetDestination(fpc.position);
                 }
             }
             else if (tactic == Tactics.Sniper)
@@ -89,20 +92,20 @@ public class EnemyMovement : MonoBehaviour
                 else
                 {
                     anim.SetFloat("Speed", 0.3f);
-                    nav.SetDestination(player.transform.position);
+                    nav.SetDestination(fpc.position);
                 }
             }
             else if (tactic == Tactics.Melee)
             {
                 // Sprint towards player
                 anim.SetFloat("Speed", 0.8f);
-                nav.SetDestination(player.transform.position);
+                nav.SetDestination(fpc.position);
             }
             else if (tactic == Tactics.Kamikazi)
             {
                 // Sprint towards player
                 anim.SetFloat("Speed", 0.8f);
-                nav.SetDestination(player.transform.position);
+                nav.SetDestination(fpc.position);
             }
             else
                 nav.enabled = false;
