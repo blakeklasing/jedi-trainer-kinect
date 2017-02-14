@@ -92,7 +92,8 @@ public class EnemyAttack : MonoBehaviour
         {
             enemyMovement.nav.Stop();
             anim.SetTrigger("Shoot");
-            GameObject.Instantiate(weaponBlast, meleeCollider.ClosestPointOnBounds(player.transform.position), gameObject.transform.rotation);
+            GameObject blast = GameObject.Instantiate(weaponBlast, meleeCollider.ClosestPointOnBounds(player.transform.position), gameObject.transform.rotation);
+            Destroy(blast, 4);
             timeUntilNextAttack = Random.Range(shootCooldown, shootCooldown + 1.0f);
         }
 
