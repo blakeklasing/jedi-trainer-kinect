@@ -85,7 +85,7 @@ public class EnemyAttack : MonoBehaviour
         if (inMeleeRange)
         {
             anim.SetTrigger("Melee");
-            //player.takedamage()
+            playerHealth.TakeDamage(meleeDamage);
             timeUntilNextAttack = Random.Range(meleeCooldown, meleeCooldown + 1.0f);
         }
         else if (inShootRange)

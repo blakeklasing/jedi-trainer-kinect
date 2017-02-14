@@ -53,6 +53,7 @@ public class EnemyHealth : MonoBehaviour
         // If the current health is less than or equal to zero...
         if (currentHealth <= 0)
             Death();
+
     }
 
 

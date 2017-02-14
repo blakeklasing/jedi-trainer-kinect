@@ -28,10 +28,19 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
+        // If the player has just been damaged...
+        if (damaged)
+            damageImage.color = flashColour;
+        else
+            damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+
+        // Reset the damaged flag.
+        damaged = false;
     }
 
     public void TakeDamage(int amount)
     {
+        Debug.Log("damage");
         // Set the damaged flag so the screen will flash.
         damaged = true;
 

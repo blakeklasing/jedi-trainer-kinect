@@ -21,7 +21,7 @@ public class LaserBlast : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.Equals(player))
+        if (other.gameObject == player)
             playerHealth.TakeDamage(attackDamage);
         else
             Destroy(this.gameObject);
