@@ -4,26 +4,18 @@ using UnityEngine;
 
 public class Lightning : MonoBehaviour {
 
-    GameObject player;
-    PlayerHealth playerHealth;
-
-	// Use this for initialization
-	void Start () {
-        player = GameObject.Find("Player");
-        playerHealth = player.GetComponent<PlayerHealth>();
-	}
-	
 	// Update is called once per frame
 	void Update () {
 		
 	}
 
+    // perform lightning things
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("lightning");
         if (other.gameObject == player)
-             playerHealth.TakeDamage(100);
+             playerHealth.TakeDamage(20);
         else if (other.gameObject.tag.Equals("Enemy") && other.GetType() == typeof(CapsuleCollider))
-            other.gameObject.GetComponent<EnemyHealth>().TakeDamage(100);
+            other.gameObject.GetComponent<EnemyHealth>().TakeDamage(50);
     }
 }

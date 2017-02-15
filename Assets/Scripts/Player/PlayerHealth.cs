@@ -9,12 +9,14 @@ public class PlayerHealth : MonoBehaviour
     public Image damageImage; 
     public AudioClip deathClip;
     public float flashSpeed = 5f;
-    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
+    public Color damageColor = new Color(1f, 0f, 0f, 0.1f);
+    public Color healColor   = new Color(0f, 1f, 0f, 0.1f);
 
     Animator anim;
     AudioSource playerAudio;
     bool isDead;
     bool damaged;
+    bool healed;
 
     void Awake()
     {
@@ -30,12 +32,21 @@ public class PlayerHealth : MonoBehaviour
     {
         // If the player has just been damaged...
         if (damaged)
-            damageImage.color = flashColour;
+        {
+            damageImage.color = damageColor;
+            damaged = false;
+        }  
+        else if (healed)
+        {
+            damageImage.color = damageColor;
+            healed = true;
+        }
         else
+        {
+            // flash
             damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
-
-        // Reset the damaged flag.
-        damaged = false;
+        }
+            
     }
 
     public void TakeDamage(int amount)
@@ -54,6 +65,21 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0 && !isDead)
             Death();
+    }
+
+    public void heal(int amount)
+    {
+        // Set the damaged flag so the screen will flash.
+        healed = true;
+
+        // Reduce the current health by the damage amount.
+        currentHealth += amount;
+
+        // Set the health bar's value to the current health.
+        healthSlider.value = currentHealth;
+
+        // Play the hurt sound effect.
+        playerAudio.Play();
     }
 
     void Death()
