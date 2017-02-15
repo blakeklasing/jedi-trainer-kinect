@@ -19,14 +19,12 @@ public class LaserBlast : MonoBehaviour {
         gameObject.transform.position += 25.0f * Time.smoothDeltaTime * gameObject.transform.forward;
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == player)
         {
             playerHealth.TakeDamage(attackDamage);
             Destroy(this.gameObject);
         }
-        else
-            Destroy(this.gameObject);
     }
 }

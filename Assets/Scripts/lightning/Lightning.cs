@@ -20,13 +20,10 @@ public class Lightning : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-
+        Debug.Log("lightning");
         if (other.gameObject == player)
              playerHealth.TakeDamage(100);
-         else if (other.gameObject.tag.Equals("Enemy"))
-             other.gameObject.GetComponent<EnemyHealth>().TakeDamage(100);
-
-
+        else if (other.gameObject.tag.Equals("Enemy") && other.GetType() == typeof(CapsuleCollider))
+            other.gameObject.GetComponent<EnemyHealth>().TakeDamage(100);
     }
-
 }

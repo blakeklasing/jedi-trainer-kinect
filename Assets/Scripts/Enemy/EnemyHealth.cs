@@ -10,7 +10,6 @@ public class EnemyHealth : MonoBehaviour
 
     Animator anim;                              // Reference to the animator.
     AudioSource enemyAudio;                     // Reference to the audio source.
-    ParticleSystem hitParticles;                // Reference to the particle system that plays when the enemy is damaged.
     CapsuleCollider capsuleCollider;            // Reference to the capsule collider.
     bool isDead;                                // Whether the enemy is dead.
     bool isSinking;                             // Whether the enemy has started sinking through the floor.
@@ -20,7 +19,6 @@ public class EnemyHealth : MonoBehaviour
         // Setting up the references.
         anim = GetComponent<Animator>();
         enemyAudio = GetComponent<AudioSource>();
-        hitParticles = GetComponentInChildren<ParticleSystem>();
         capsuleCollider = GetComponent<CapsuleCollider>();
 
         // Setting the current health when the enemy first spawns.
@@ -33,19 +31,20 @@ public class EnemyHealth : MonoBehaviour
         if (isSinking)
         {
             // ... move the enemy down by the sinkSpeed per second.
-            transform.Translate(-Vector3.up * sinkSpeed * Time.deltaTime);
+            transform.Translate(Vector3.up * sinkSpeed * Time.deltaTime);
         }
     }
 
 
     public void TakeDamage(int amount)
     {
+        Debug.Log("damage");
         // If the enemy is dead...
         if (isDead)
             return;
 
         // Play the hurt sound effect.
-        enemyAudio.Play();
+        //enemyAudio.Play();
 
         // Reduce the current health by the amount of damage sustained.
         currentHealth -= amount;
@@ -69,8 +68,8 @@ public class EnemyHealth : MonoBehaviour
         anim.SetTrigger("Dead");
 
         // Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).
-        enemyAudio.clip = deathClip;
-        enemyAudio.Play();
+        //enemyAudio.clip = deathClip;
+        //enemyAudio.Play();
     }
 
 

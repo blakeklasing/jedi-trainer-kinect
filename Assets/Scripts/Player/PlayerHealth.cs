@@ -40,7 +40,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        Debug.Log("damage");
         // Set the damaged flag so the screen will flash.
         damaged = true;
 

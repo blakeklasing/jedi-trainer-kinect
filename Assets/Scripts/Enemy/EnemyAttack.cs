@@ -70,7 +70,7 @@ public class EnemyAttack : MonoBehaviour
     bool CanAttack()
     {
         // Check if the player is still alive
-        if (enemyHealth.currentHealth < 0)
+        if (enemyHealth.currentHealth <= 0)
             return false;
 
         // If attack is in cooldown
@@ -108,9 +108,9 @@ public class EnemyAttack : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        colliderCounter++;
-
         if (other.gameObject == player) {
+            colliderCounter++;
+
             // Check shoot collider
             if (colliderCounter == 1)
                 inShootRange = true;
@@ -130,9 +130,9 @@ public class EnemyAttack : MonoBehaviour
             // Check melee collider
             else if (colliderCounter == 2)
                 inMeleeRange = false;
-        }
 
-        colliderCounter--;
+            colliderCounter--;
+        }
     }
 
     Transform FindTransform(Transform parent, string name)
@@ -158,7 +158,7 @@ public class EnemyAttack : MonoBehaviour
         Transform shootingHand = FindTransform(gameObject.transform, "hand.R");
         LaserBlast blast = GameObject.Instantiate(weaponBlast, shootingHand.position, gameObject.transform.rotation) as LaserBlast;
         blast.attackDamage = shootDamage;
-        Destroy(blast, 4);
+        Destroy(blast.gameObject, 0.1f);
         timeUntilNextAttack = Random.Range(shootCooldown, shootCooldown + 1.0f);
     }
 }
