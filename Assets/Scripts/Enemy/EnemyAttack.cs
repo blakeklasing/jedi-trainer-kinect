@@ -39,12 +39,6 @@ public class EnemyAttack : MonoBehaviour
         anim = GetComponent<Animator>();
         SphereCollider[] colliders = GetComponents<SphereCollider>();
 
-        // Create shooting and melee colliders
-        shootCollider = GetComponents<SphereCollider>()[0];
-        meleeCollider = GetComponents<SphereCollider>()[1];
-        shootCollider.radius = shootRange;
-        meleeCollider.radius = meleeRange;
-
         colliderCounter = 0;
         attackCooldownTimer = 0;
         timeUntilNextAttack = 0;

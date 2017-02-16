@@ -7,6 +7,7 @@ public class EnemyMovement : MonoBehaviour
 
     public Tactics tactic;
     public NavMeshAgent nav;
+    public bool forceAffected;
 
     Transform player;
     Transform waypoint;
@@ -38,6 +39,20 @@ public class EnemyMovement : MonoBehaviour
 
         if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
         {
+
+            if (forceAffected)
+            {
+                anim.SetFloat("Speed", 0.0f);
+                anim.SetTrigger("Force");
+                nav.enabled = false;
+                return;
+            }
+            else
+            {
+                anim.SetBool("Force", false);
+                nav.enabled = true;
+            }
+
             if (Vector3.Distance(waypoint.position, gameObject.transform.position) < 2)
                 reachedWaypoint = true;
 
@@ -172,5 +187,14 @@ public class EnemyMovement : MonoBehaviour
         }
         else
             nav.enabled = false;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 10)
+        {
+            Debug.Log("fell");
+            anim.SetTrigger("Fell");
+        }
     }
 }

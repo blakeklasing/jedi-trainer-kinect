@@ -5,8 +5,8 @@ using UnityEngine;
 public class TheForce : MonoBehaviour {
 
     
-    float global_timer;
-
+    
+    public Camera camera;
 
     //lightning prefab
     public GameObject lightning;
@@ -18,26 +18,56 @@ public class TheForce : MonoBehaviour {
     // heal instance
     private GameObject healObject;
 
+    // grab variables
+    GameObject grabObject = null;
+    Vector3 screenPoint;
+    Vector3 offset;
+
+
+    // push variables
+    float push_timer;
+    const float PUSH_DURATION = 0.7f;
+    ArrayList pushedList;
+    Vector3 pushDirection;
+
     // Use this for initialization
     void Start () {
-		
+        pushedList = new ArrayList();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (grabObject != null)
+        {
+            ForceMove(Input.mousePosition);
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            ForceGrab(Input.mousePosition);
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            ForceRelease();
+        }
 
         //DEBUG
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            ForceLightning();
-            ForceHeal();
-        }
         if (Input.GetKeyDown(KeyCode.F))
         {
-            ForceGrab();
+            ForceLightning();
         }
-
-
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            ForceHeal();
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            ForcePush();
+            push_timer = Time.time;
+        }
+        if (pushedList.Count > 0 && (Time.time - push_timer) < PUSH_DURATION)
+        {
+            PushAll();
+        }
     }
 
     // lightning
@@ -48,42 +78,58 @@ public class TheForce : MonoBehaviour {
         // find enemies in range infront of you
         
         // dmg each enemy
-
     }
 
     // grab
-    public void ForceGrab()
+    public void ForceGrab(Vector3 position)
     {
         RaycastHit hit;
-        bool grabbed = false;
-        GameObject hit_object = null;
         Vector3 jedi_pos = gameObject.transform.position;
-        //jedi_pos.y = jedi_pos.y;
 
-        if (Physics.Raycast(jedi_pos, gameObject.transform.forward*100, out hit, 10.0f))
+        // get ray from camera to cast
+        Ray camera_ray = camera.ScreenPointToRay(Input.mousePosition);
+
+        Debug.DrawRay(camera_ray.origin, camera_ray.direction*100, Color.blue);
+
+        if (Physics.Raycast(camera_ray, out hit))
         {
-
-
-            Debug.DrawRay(jedi_pos, gameObject.transform.forward * 1000);//gameObject.transform.rotation);
-            if(hit.collider.gameObject && Input.GetMouseButtonDown(0) && !grabbed)
+            // No object select, grab one if available
+            if (grabObject == null)
             {
-                hit_object = hit.collider.gameObject;
-                grabbed = true;
-                Debug.DrawRay(jedi_pos, gameObject.transform.forward * 1000, Color.blue);
-                Debug.Log("hello");
-            }
-            else if(Input.GetMouseButtonDown(0) && grabbed)
-            {
-                grabbed = false;
+                if (hit.collider.gameObject && hit.collider.gameObject.layer == LayerMask.NameToLayer("Pushable layer"))
+                {
+                    grabObject = hit.collider.gameObject;
+                    screenPoint = Camera.main.WorldToScreenPoint(grabObject.transform.position);
+                    offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, screenPoint.z));
+                    if (grabObject.tag == "Enemy")
+                    {
+                        grabObject.GetComponent<EnemyMovement>().forceAffected = true;
+                    }
+                }
             }
         }
+    }
 
-        if(grabbed && hit_object != null)
+    void ForceMove(Vector3 position)
+    {
+        if(grabObject != null)
         {
-            hit_object.transform.position.Set(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+            Vector3 curScreenPoint = new Vector3(position.x, position.y, screenPoint.z);
+
+            Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint);
+            grabObject.transform.position = curPosition;
+            Debug.Log(position);
+        }
+    }
+
+    void ForceRelease()
+    {
+        if (grabObject.tag == "Enemy")
+        {
+            grabObject.GetComponent<EnemyMovement>().forceAffected = false;
         }
 
-
+        grabObject = null;
     }
 
     // push
@@ -91,8 +137,42 @@ public class TheForce : MonoBehaviour {
     {
 
         // find enemies in range infront of you
+        RaycastHit hit;
+        GameObject hit_object = null;
+        Ray findRay;
 
-        // push them
+        // reset list
+        pushedList.Clear();
+
+        // get ray from camera to cast
+        Ray cameraRay = camera.ScreenPointToRay(Input.mousePosition);
+        pushDirection = new Vector3(cameraRay.direction.x, cameraRay.direction.y + 1, cameraRay.direction.z);
+
+        // cast 30 rays infront of player to look for enemies to push
+        for (int i = 0; i < 1; i++)
+        {
+            //Debug.Log("force push");
+            findRay = new Ray(cameraRay.origin, cameraRay.direction);
+            if (Physics.Raycast(findRay, out hit))
+            {
+                hit_object = hit.collider.gameObject;
+
+                // add objects to collection
+                if(hit_object.layer == 9)
+                {
+                    if (hit_object.tag == "Enemy")
+                    {
+                        hit_object.GetComponent<EnemyMovement>().forceAffected = true;
+                    }
+
+                    pushedList.Add(hit_object);
+                    Debug.Log("added to list");
+                }
+                    
+                
+            }
+        }
+        
     }
 
     // heal
@@ -122,6 +202,19 @@ public class TheForce : MonoBehaviour {
 
     }
 
+
+
+    // helper functions
+    void PushAll()
+    {
+        // push all objects in list
+        foreach( GameObject pushedObject in pushedList)
+        {
+            pushedObject.transform.position += 10.0f * Time.smoothDeltaTime * pushDirection;
+            Debug.Log("pushed");
+        }
+
+    }
 
 
 
