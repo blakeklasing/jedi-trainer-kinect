@@ -87,7 +87,7 @@ public class TheForce : MonoBehaviour {
         Vector3 jedi_pos = gameObject.transform.position;
 
         // get ray from camera to cast
-        Ray camera_ray = camera.ScreenPointToRay(Input.mousePosition);
+        Ray camera_ray = camera.ScreenPointToRay(position);
 
         Debug.DrawRay(camera_ray.origin, camera_ray.direction*100, Color.blue);
 

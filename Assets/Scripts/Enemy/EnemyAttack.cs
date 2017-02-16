@@ -11,24 +11,18 @@ public class EnemyAttack : MonoBehaviour
     public int meleeDamage;
     public float meleeCooldown;
 
-    public bool inShootRange;
-    public bool inMeleeRange;
+    public bool inShootRange = false;
+    public bool inMeleeRange = false;
 
     Animator anim;
     GameObject player;
     PlayerHealth playerHealth;
     EnemyHealth enemyHealth;
     EnemyMovement enemyMovement;
-    SphereCollider shootCollider;
-    SphereCollider meleeCollider;
     float timeUntilNextAttack;
     float attackCooldownTimer;
     float rangedAttackSpeed = 1;
     float meleeAttackSpeed = 1;
-    bool isAttacking;
-
-    int colliderCounter;
-
 
     void Awake()
     {
@@ -37,9 +31,7 @@ public class EnemyAttack : MonoBehaviour
         enemyHealth = GetComponent<EnemyHealth>();
         enemyMovement = GetComponent<EnemyMovement>();
         anim = GetComponent<Animator>();
-        SphereCollider[] colliders = GetComponents<SphereCollider>();
 
-        colliderCounter = 0;
         attackCooldownTimer = 0;
         timeUntilNextAttack = 0;
     }
@@ -63,19 +55,19 @@ public class EnemyAttack : MonoBehaviour
 
     bool CanAttack()
     {
+        float distance = Vector3.Distance(gameObject.transform.position, player.transform.position);
+        // Check if the player is within melee range
+        inMeleeRange = (distance <= meleeRange);
+
+        // Check if the player is within shoot range
+        inShootRange = (distance <= shootRange);
+
         // Check if the player is still alive
         if (enemyHealth.currentHealth <= 0)
             return false;
 
         // If attack is in cooldown
         if (attackCooldownTimer <= timeUntilNextAttack)
-            return false;
-
-        // Check if the player is within attack range
-        if (!inShootRange && !inMeleeRange)
-            return false;
-
-        if (isAttacking)
             return false;
 
         return true;
@@ -100,35 +92,7 @@ public class EnemyAttack : MonoBehaviour
         attackCooldownTimer = 0f;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == player) {
-            colliderCounter++;
-
-            // Check shoot collider
-            if (colliderCounter == 1)
-                inShootRange = true;
-            // Check melee collider
-            else if (colliderCounter == 2)
-                inMeleeRange = true;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject == player)
-        {
-            // Check shoot collider
-            if (colliderCounter == 1)
-                inShootRange = false;
-            // Check melee collider
-            else if (colliderCounter == 2)
-                inMeleeRange = false;
-
-            colliderCounter--;
-        }
-    }
-
+    // Helper func
     Transform FindTransform(Transform parent, string name)
     {
         if (parent.name.Equals(name)) return parent;
@@ -140,19 +104,21 @@ public class EnemyAttack : MonoBehaviour
         return null;
     }
 
-
+    // Called by animation event
     public void meleeAttack()
     {
         playerHealth.TakeDamage(meleeDamage);
         timeUntilNextAttack = Random.Range(meleeCooldown, meleeCooldown + 1.0f);
     }
 
+    // Called by animation event
     public void rangedAttack()
     {
         Transform shootingHand = FindTransform(gameObject.transform, "hand.R");
         LaserBlast blast = GameObject.Instantiate(weaponBlast, shootingHand.position, gameObject.transform.rotation) as LaserBlast;
+        //Physics.IgnoreCollision(blast.GetComponent<CapsuleCollider>(), gameObject.GetComponent<CapsuleCollider>());
         blast.attackDamage = shootDamage;
-        Destroy(blast.gameObject, 0.1f);
+        Destroy(blast.gameObject, 4f);
         timeUntilNextAttack = Random.Range(shootCooldown, shootCooldown + 1.0f);
     }
 }
