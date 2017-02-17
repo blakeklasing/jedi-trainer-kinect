@@ -11,8 +11,10 @@ public class PlayerKinectManager : MonoBehaviour {
     public GameObject eggPrefab;
     public FirstPersonController fpsC;
     
-    //
+    
     public TheForce the_force;
+    private int state;
+    enum State {lightsaberReady, lightsaberFinal };
 
     //light saber variables
     public lightsaber light_saber;
@@ -141,9 +143,8 @@ public class PlayerKinectManager : MonoBehaviour {
     bool checkLightning()
     {
         
-
-        if (    ((localRHand.y < 0.04f) && (localRHand.y > 0.0f) && (localLHand.y < 0.00f) && (localRHand.x < 0.01f && localRHand.x > -0.01f) )
-            || ((localLHand.y < 0.04f) && (localLHand.y > 0.0f) && (localRHand.y < 0.00f)) )
+        if (    ((globalRHand.y < 0.04f) && (globalRHand.y > 0.0f) && (globalLHand.y < 0.00f) && (globalRHand.x < 0.01f && globalRHand.x > -0.01f) )
+            || ((globalLHand.y < 0.04f) && (globalLHand.y > 0.0f) && (globalRHand.y < 0.00f)) )
         {
             return true;
         }
