@@ -11,8 +11,8 @@ public class EnemyAttack : MonoBehaviour
     public int meleeDamage;
     public float meleeCooldown;
 
-    public bool inShootRange;
-    public bool inMeleeRange;
+    public bool inShootRange = false;
+    public bool inMeleeRange = false;
 
     Animator anim;
     GameObject player;
@@ -55,6 +55,7 @@ public class EnemyAttack : MonoBehaviour
 
     bool CanAttack()
     {
+        float distance = Vector3.Distance(gameObject.transform.position, player.transform.position);
         // Check if the player is still alive
         if (enemyHealth.currentHealth <= 0)
             return false;
@@ -64,7 +65,6 @@ public class EnemyAttack : MonoBehaviour
             return false;
 
         // Check if player is within melee range
-        float distance = Vector3.Distance(player.transform.position, gameObject.transform.position);
         if (distance < meleeRange)
         {
             inMeleeRange = true;
@@ -109,7 +109,6 @@ public class EnemyAttack : MonoBehaviour
         }
         return null;
     }
-     
     // Called by event animation event
     public void meleeAttack()
     {
@@ -117,11 +116,12 @@ public class EnemyAttack : MonoBehaviour
         timeUntilNextAttack = Random.Range(meleeCooldown, meleeCooldown + 1.0f);
     }
 
-    // Called by event animation event
+    // Called by animation event
     public void rangedAttack()
     {
         Transform shootingHand = FindTransform(gameObject.transform, "hand.R");
         LaserBlast blast = GameObject.Instantiate(weaponBlast, shootingHand.position, gameObject.transform.rotation) as LaserBlast;
+        //Physics.IgnoreCollision(blast.GetComponent<CapsuleCollider>(), gameObject.GetComponent<CapsuleCollider>());
         blast.attackDamage = shootDamage;
         Destroy(blast.gameObject, 4.0f);
         timeUntilNextAttack = Random.Range(shootCooldown, shootCooldown + 1.0f);

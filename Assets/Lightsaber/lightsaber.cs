@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lightsaber : MonoBehaviour {
+public class Lightsaber : MonoBehaviour {
 
     LineRenderer lineRenderer;
     public Transform start;
@@ -95,8 +95,14 @@ public class lightsaber : MonoBehaviour {
     {
         saber_on = toggle;
     }
-
-
+    // change transform of lightsaber with kinect data
+    public void updateTransform(Vector3 LHand, Vector3 RHand)
+    {
+        // find direction of ray created from hands
+        Ray lightsaberRay = new Ray(LHand, RHand - LHand);
+        // rotation our lighsaber accordingly
+        this.gameObject.transform.Rotate(lightsaberRay.direction.normalized);
+    }
 
 
 
