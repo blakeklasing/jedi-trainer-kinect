@@ -29,6 +29,7 @@ public class TheForce : MonoBehaviour {
     // Use this for initialization
     void Start () {
         pushedList = new ArrayList();
+        camera = this.GetComponentInChildren<Camera>();
 	}
 	
 	// Update is called once per frame
@@ -44,7 +45,8 @@ public class TheForce : MonoBehaviour {
             ForceHeal();
         }
         if (Input.GetKeyDown(KeyCode.V))
-        {
+        {   
+            
             ForcePush();
             push_timer = Time.time;
         }
