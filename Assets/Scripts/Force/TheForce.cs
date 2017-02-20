@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TheForce : MonoBehaviour {
-
-    
-    
     public Camera camera;
 
     //lightning prefab
@@ -18,7 +15,19 @@ public class TheForce : MonoBehaviour {
     // heal instance
     private GameObject healObject;
 
+    // ForceFuture
+    public ForceFuture forceFuture;
+    float force_timer;
+
     // grab variables
+    public Material highlightMaterial;
+    Material prevMaterial;
+    GameObject grabObject = null;
+    Vector3 screenPoint;
+    Vector3 offset;
+    float startTime;
+
+    float objectDistance;
 
     // push variables
     float push_timer;
@@ -34,6 +43,17 @@ public class TheForce : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        /*
+        if (grabObject != null) {
+            ForceMove(Input.mousePosition);
+        }
+        if (Input.GetMouseButton(0)) {
+            ForceGrab(Input.mousePosition);
+        }
+        if (Input.GetMouseButtonUp(0)) {
+            ForceRelease();
+        }
+         */
 
         //DEBUG
         if (Input.GetKeyDown(KeyCode.F))
@@ -45,30 +65,18 @@ public class TheForce : MonoBehaviour {
             ForceHeal();
         }
         if (Input.GetKeyDown(KeyCode.V))
-        {   
-            
+        {      
             ForcePush();
             push_timer = Time.time;
         }
         if (pushedList.Count > 0 && (Time.time - push_timer) < PUSH_DURATION)
         {
             PushAll();
-            Debug.Log((Time.time - push_timer));
         }
-            
-
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            
+            ForceFuture();
         }
-        //ForceGrab(true);
-        if (Input.GetMouseButtonUp(0))
-        {
-            ForceGrab(false);
-        }
-        
-
-
     }
 
     // lightning
@@ -82,48 +90,99 @@ public class TheForce : MonoBehaviour {
 
     }
 
-    // grab
-    public void ForceGrab(bool grabbing)
+    public void ForceHighlight(Vector3 position, Vector3 direction)
     {
+        //Ray ray = camera.ScreenPointToRay(position);
+        direction.x = -1 * direction.x;
+        Ray ray = new Ray(gameObject.GetComponentInChildren<Camera>().transform.position, direction.normalized*-100);
+        Debug.Log(ray.origin);
+
         RaycastHit hit;
-        bool grabbed = false;
-        GameObject hit_object = null;
-        Vector3 jedi_pos = gameObject.transform.position;
 
-        // get ray from camera to cast
-        Ray camera_ray = camera.ScreenPointToRay(Input.mousePosition);
-
-        //Debug.DrawRay(jedi_pos, gameObject.transform.forward * 1000);
-        Debug.DrawRay(camera_ray.origin, camera_ray.direction*100, Color.blue);
-        /*
-         * 
-         * if (Physics.Raycast(transform.position, fwd, 10)) 
-            print("There is something in front of the object!");
-         * */
-
-
-        if ( Physics.Raycast(camera_ray, out hit) )        //Physics.Raycast(jedi_pos, gameObject.transform.forward*100, out hit, 10.0f))
+        if (Physics.Raycast(ray, out hit))
         {
-            Debug.Log("ray: " + hit.collider.gameObject.ToString());
-            
-            if(hit.collider.gameObject && ((hit.collider.GetType() == typeof(CapsuleCollider) && hit.collider.gameObject.tag == "Enemy") || hit.collider.GetType() != typeof(CapsuleCollider)) && grabbing && !grabbed)
+            Debug.Log("Hit: " + hit.collider.gameObject.name);
+            if (grabObject != null)
             {
-                hit_object = hit.collider.gameObject;
-                grabbed = true;
-                Debug.Log("grabbed");
+                grabObject.GetComponent<Renderer>().material = prevMaterial;
+                Debug.Log("UnHighlight: " + grabObject.name);
             }
-            else if(!grabbing && grabbed)
+
+            if (hit.collider.gameObject.layer == 9)
             {
-                grabbed = false;
+                grabObject = hit.collider.gameObject;
+                prevMaterial = grabObject.GetComponent<Renderer>().material;
+                grabObject.GetComponent<Renderer>().material = highlightMaterial;
+                Debug.Log("Highlight: " + grabObject.name);
             }
+            /*
+            else
+            {
+                grabObject.GetComponent<Renderer>().material = prevMaterial;
+                Debug.Log("UnHighlight: " + grabObject.name);
+            }
+            */
+
+
+            //Debug.DrawLine(ray.origin, ray.direction * 20, Color.red, 20);
+            //Debug.DrawRay(ray.origin, ray.direction * 20, Color.red, 20);
+
+
+
+            /*
+            Debug.Log("Hit: " + hit.collider.gameObject.name);
+            if (grabObject != null && hit.collider.gameObject != grabObject)
+            {
+                Debug.Log("Material: " + prevMaterial.name);
+                grabObject.GetComponent<Renderer>().material = prevMaterial;
+                grabObject = null;
+                prevMaterial = null;
+            }
+
+            if (hit.collider.gameObject && hit.collider.gameObject.layer == 9)
+            {
+                Debug.Log("Highlight: " + hit.collider.gameObject.name);
+                grabObject = hit.collider.gameObject;
+                prevMaterial = new Material(grabObject.GetComponent<Renderer>().material);
+                grabObject.GetComponent<Renderer>().material = highlightMaterial;
+            }
+            */
         }
+    }
 
-        if(grabbed && hit_object != null)
-        {
-            hit_object.transform.position.Set(camera_ray.origin.x + camera_ray.direction.x, camera_ray.origin.y + camera_ray.direction.y, camera_ray.origin.z + camera_ray.direction.z);// gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+    // grab
+    public void ForceGrab()
+    {
+        objectDistance = Vector3.Distance(gameObject.GetComponentInChildren<Camera>().transform.position, grabObject.transform.position);
+
+        if (grabObject.tag == "Enemy")
+            grabObject.GetComponent<EnemyMovement>().forceAffected = true;
+
+        startTime = Time.time;
+        Debug.Log("Init force grab: " + grabObject.transform.position);
+    }
+
+    public void ForceMove(Vector3 direction)
+    {
+        if (grabObject != null) {
+
+            //Vector3 currentScreenPoint = new Vector3(position.x, position.y, screenPoint.z);
+            //Vector3 currentPosition = Camera.main.ScreenToWorldPoint(currentScreenPoint);
+            Vector3 tempPosition = gameObject.GetComponentInChildren<Camera>().transform.position + direction * objectDistance;
+            tempPosition.z = grabObject.transform.position.z;
+            float distCovered = (Time.time - startTime) * 1.0f;
+            float fracJourney = distCovered / Vector3.Distance(grabObject.transform.position, tempPosition);
+            grabObject.transform.position = Vector3.Lerp(grabObject.transform.position, tempPosition, fracJourney);
+
+            Debug.Log("forcemove: " + grabObject.transform.position);
+            Debug.Log("distance: " + objectDistance);
         }
+        
+    }
 
-
+    public void ForceRelease()
+    {
+        grabObject = null;
     }
 
     // push
@@ -140,7 +199,7 @@ public class TheForce : MonoBehaviour {
 
         // get ray from camera to cast
         Ray cameraRay = camera.ScreenPointToRay(Input.mousePosition);
-        pushDirection = new Vector3(cameraRay.direction.x, cameraRay.direction.y + 1, cameraRay.direction.z);
+        pushDirection = new Vector3(cameraRay.direction.x, cameraRay.direction.y + 0.1f, cameraRay.direction.z);
 
         // cast 30 rays infront of player to look for enemies to push
         for (int i = 0; i < 1; i++)
@@ -154,6 +213,9 @@ public class TheForce : MonoBehaviour {
                 // add objects to collection
                 if(hit_object.layer == 9)
                 {
+                    if (hit_object.tag == "Enemy") {
+                        hit_object.GetComponent<EnemyMovement>().forceAffected = true;
+                    }
                     pushedList.Add(hit_object);
                     Debug.Log("added to list");
                 }
@@ -175,7 +237,9 @@ public class TheForce : MonoBehaviour {
     // future
     public void ForceFuture()
     {
-
+        if (forceFuture != null) {
+            StartCoroutine(forceFuture.activate());
+        }
     }
 
     // Choke
@@ -204,7 +268,4 @@ public class TheForce : MonoBehaviour {
         }
 
     }
-
-
-
 }

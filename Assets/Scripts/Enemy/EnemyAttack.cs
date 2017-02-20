@@ -50,12 +50,19 @@ public class EnemyAttack : MonoBehaviour
 
         // If the player is dead
         if (playerHealth.currentHealth <= 0)
-            anim.SetTrigger("PlayerDead");
+            ;//anim.SetTrigger("PlayerDead");
     }
 
-    bool CanAttack()
+    public bool CanAttack()
     {
         float distance = Vector3.Distance(gameObject.transform.position, player.transform.position);
+
+        // Check if hte player is within melee range
+        inMeleeRange = (distance <= meleeRange);
+
+        // Check if the player is within shoot range
+        inShootRange = (distance <= shootRange);
+
         // Check if the player is still alive
         if (enemyHealth.currentHealth <= 0)
             return false;
@@ -64,31 +71,18 @@ public class EnemyAttack : MonoBehaviour
         if (attackCooldownTimer <= timeUntilNextAttack)
             return false;
 
-        // Check if player is within melee range
-        if (distance < meleeRange)
-        {
-            inMeleeRange = true;
-            return true;
-        }
-        // Check if player is within shoot range
-        if (distance < shootRange)
-        {
-            inShootRange = true;
-            return true;
-        }
-
         return true;
     }
 
     void Attack()
     {
-        if (inMeleeRange)
+        if (inMeleeRange && enemyMovement.nav.isActiveAndEnabled)
         {
             enemyMovement.nav.Stop();
             anim.SetTrigger("Melee");
             // Event animation will execute meleeAttack()
         }
-        else if (inShootRange)
+        else if (inShootRange && enemyMovement.nav.isActiveAndEnabled)
         {
             enemyMovement.nav.Stop();
             anim.SetTrigger("Shoot");
@@ -109,6 +103,7 @@ public class EnemyAttack : MonoBehaviour
         }
         return null;
     }
+
     // Called by event animation event
     public void meleeAttack()
     {
@@ -119,9 +114,12 @@ public class EnemyAttack : MonoBehaviour
     // Called by animation event
     public void rangedAttack()
     {
+        /*
         Transform shootingHand = FindTransform(gameObject.transform, "hand.R");
-        LaserBlast blast = GameObject.Instantiate(weaponBlast, shootingHand.position, gameObject.transform.rotation) as LaserBlast;
-        //Physics.IgnoreCollision(blast.GetComponent<CapsuleCollider>(), gameObject.GetComponent<CapsuleCollider>());
+        if (shootingLocation == null)
+            shootingLocation = gameObject.GetComponent<Collider>().ClosestPointOnBounds(player.transform.position);
+        */
+        LaserBlast blast = GameObject.Instantiate(weaponBlast, gameObject.GetComponent<Collider>().ClosestPointOnBounds(player.transform.position), gameObject.transform.rotation) as LaserBlast;
         blast.attackDamage = shootDamage;
         Destroy(blast.gameObject, 4.0f);
         timeUntilNextAttack = Random.Range(shootCooldown, shootCooldown + 1.0f);

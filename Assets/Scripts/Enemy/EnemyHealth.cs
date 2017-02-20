@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     public float sinkSpeed = 2.5f;              // The speed at which the enemy sinks through the floor when dead.
     public AudioClip deathClip;                 // The sound to play when the enemy dies.
 
+    PlayerScore playerScore;
     Animator anim;                              // Reference to the animator.
     AudioSource enemyAudio;                     // Reference to the audio source.
     CapsuleCollider capsuleCollider;            // Reference to the capsule collider.
@@ -17,6 +19,7 @@ public class EnemyHealth : MonoBehaviour
     void Awake()
     {
         // Setting up the references.
+        playerScore = GameObject.Find("Player").GetComponent<PlayerScore>();
         anim = GetComponent<Animator>();
         enemyAudio = GetComponent<AudioSource>();
         capsuleCollider = GetComponent<CapsuleCollider>();
@@ -70,6 +73,8 @@ public class EnemyHealth : MonoBehaviour
         // Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).
         //enemyAudio.clip = deathClip;
         //enemyAudio.Play();
+
+        playerScore.incrementScore(10);
     }
 
 

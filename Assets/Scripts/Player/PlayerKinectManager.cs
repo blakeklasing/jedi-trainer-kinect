@@ -9,8 +9,6 @@ public class PlayerKinectManager : MonoBehaviour {
 
     KinectManager km;
 
-    public FirstPersonController fpsC;
-
     // UI manipulation variables
     public GameObject textObject;
     private Text textComponent;
@@ -20,39 +18,60 @@ public class PlayerKinectManager : MonoBehaviour {
     // Kinect State
     private State state;
     private State prevState;
-    enum State { waiting, lightsaberReady, lightsaberDrawn, lightning, heal, pushReady, push, grabReady, grab, future};
+    enum State { waiting, lightsaberReady, lightsaberDrawn, lightning, heal, pushReady, pushing, pushFinal, grabReady, grab, grabbed, grabRelease, future, futureReady};
+    float resetTime;
 
     //light saber variables
     public Lightsaber lightsaber;
     public bool lightsaberOn = false;
 
+    // Future variables
+    private Vector3 prevSpineBase;
+
     // joint locations
-    Vector3 localRHand;
-    Vector3 localLHand;
-    Vector3 localHead;
     Vector3 globalRHand;
     Vector3 globalLHand;
     Vector3 globalHead;
     Vector3 globalSpineBase;
     Vector3 globalNeck;
+    Vector3 globalLShoulder;
+    Vector3 globalRShoulder;
+    Vector3 globalLElbow;
+    Vector3 globalRElbow;
+    Vector3 globalAnkleRight;
+    Vector3 globalAnkleLeft;
 
     // Use this for initialization
     void Start () {
         km = this.gameObject.GetComponent<KinectManager>();
-        //textComponent = textObject.GetComponent<Text>();
+        textComponent = textObject.GetComponent<Text>();
 	}
 
     // Update is called once per frame
     void Update() {
+        //Ray ray = new Ray(globalRShoulder, globalRHand - globalRShoulder);
+        //Debug.DrawRay(ray.origin, ray.direction*100, Color.blue);
 
         // get kinect data
         updateJointData();
+        
+        // reset timer
+        /*if (resetTime)
+        {
+
+        }*/
 
         // update state based on previous state
         state = currentState(state);
-        //textComponent.text = state.ToString() + " ~ ";
-        switch(state)
+        //DEBUG
+        textComponent.text = state.ToString() + " ~ ";
+        // perform an action
+        switch (state)
         {
+	    case State.lightsaberReady:
+                lightsaber.setHandPositions(globalRHand, globalLHand);
+                lightsaber.toggleLightsaber(true);
+                break;
             case State.lightsaberDrawn:
                 lightsaber.updateTransform(globalLHand, globalRHand);
                 break;
@@ -65,20 +84,41 @@ public class PlayerKinectManager : MonoBehaviour {
                 state = State.waiting;
                 break;
             case State.grab:
+                theForce.ForceGrab();
+                Debug.Log("forceGrab");
                 break;
-            case State.push:
+            case State.grabbed:
+                Ray ray1 = new Ray(globalRShoulder, globalRHand - globalRShoulder);
+                Ray ray2 = new Ray(globalRShoulder, globalRElbow - globalRShoulder);
+                Ray ray3 = new Ray(globalRElbow, globalRHand - globalRElbow);
+                theForce.ForceMove((ray1.direction + ray2.direction + ray3.direction) / 3);
+                Debug.Log("forceMove");
+                break;
+            case State.grabRelease:
+                theForce.ForceRelease();
+                state = State.waiting;
+                Debug.Log("forceRelease");
+                break;
+            case State.pushFinal:
+                theForce.ForcePush();
+                Debug.Log("forcePush");
+                state = State.waiting;
                 break;
             case State.future:
+                theForce.ForceFuture();
+                state = State.waiting;
+                Debug.Log("forceFuture");
                 break;
             default:
                 break;
         }
-
+        
         //DEBUG
         //textComponent.text = textComponent.text + " ::   L: " + globalLHand.y + " | S: " + globalSpineShoulder.y;
-        //textComponent.text = "neck: " + km.GetJointPosition(km.GetPlayer1ID(), 2).y + "\nhead: " + globalHead.y;
-
-
+        //textComponent.text = textComponent.text + "\nshoulderLeft: " + km.GetJointPosition(km.GetPlayer1ID(), 4).z + ", " + km.GetJointPosition(km.GetPlayer1ID(), 4).y + "\n" + "handLeft: " + 
+        //                        globalLHand.z + ", " + globalLHand.y;
+        ///textComponent.text = textComponent.text + "\nSpine base: " + globalSpineBase;
+        //textComponent.text = textComponent.text + "\nHeight: " + Mathf.Abs(globalHead.y - (globalAnkleRight.y + globalAnkleLeft.y) / 2.0f);
 
 
         //check lightsaber
@@ -95,7 +135,7 @@ public class PlayerKinectManager : MonoBehaviour {
             {
                 theForce.ForceHeal();
             }
-
+            
         }
         */
 
@@ -131,7 +171,7 @@ public class PlayerKinectManager : MonoBehaviour {
 
 
 
-	}
+    }
 
     void updateJointData()
     {
@@ -144,13 +184,22 @@ public class PlayerKinectManager : MonoBehaviour {
         globalSpineBase = km.GetJointPosition(km.GetPlayer1ID(), 0);
         //neck
         globalNeck = km.GetJointPosition(km.GetPlayer1ID(), 2);
+        //shoulders
+        globalLShoulder = km.GetJointPosition(km.GetPlayer1ID(), 4);
+        globalRShoulder = km.GetJointPosition(km.GetPlayer1ID(), 8);
+        //elbow
+        globalLElbow = km.GetJointPosition(km.GetPlayer1ID(), 5);
+        globalRElbow = km.GetJointPosition(km.GetPlayer1ID(), 9);
+        // Ankles
+        globalAnkleLeft = km.GetJointPosition(km.GetPlayer1ID(), 14);
+        globalAnkleRight = km.GetJointPosition(km.GetPlayer1ID(), 18);
     }
 
     /* ----------- Current State----------- */
     State currentState(State prevState)
     {
         if ( prevState == State.waiting )
-        {
+        {   
             // check first level states
             if ( isLightsaberReady() )
             {
@@ -166,15 +215,18 @@ public class PlayerKinectManager : MonoBehaviour {
             }
             else if ( isGrabReady() )
             {
-
+                resetTime = Time.time;
+                return State.grabReady;
             }
             else if ( isPushReady() )
             {
+                resetTime = Time.time;
                 return State.pushReady;
             }
             else if (isFutureReady() )
             {
-
+                resetTime = Time.time;
+                return State.futureReady;
             }
             // ....
             else
@@ -186,57 +238,110 @@ public class PlayerKinectManager : MonoBehaviour {
         else
         {
             // check second level states
-            if (prevState == State.lightsaberReady)
+            if (prevState == State.lightsaberReady || prevState == State.lightsaberDrawn)
             {
                 if (isLightsaberDrawn())
-                {
                     return State.lightsaberDrawn;
-                }
                 else
-                    return State.lightsaberReady;
+                {
+                    lightsaber.toggleLightsaber(false);
+                    return State.waiting;
+                }
+                    
             }
             else if (prevState == State.pushReady)
             {
-                if( isPush() )
+                //if we have been in pushReady for more than 2.0 seconds, get out
+                if (resetTime + 2.0 < Time.time)
+                    return State.waiting;
+                else if ( isPushReady() )
+                    return State.pushReady;
+                else if( isPush() )
                 {
-
+                    return State.pushFinal;
                 }
+                else
+                {
+                    return State.pushReady;
+                }
+            } else if (prevState == State.grabReady) {
+                theForce.ForceHighlight(globalRElbow, globalRHand - globalRElbow);
+
+                //if we have been in pushReady for more than 2.0 seconds, get out
+                if (resetTime + 2.0 < Time.time)
+                    return State.waiting;
+                else if (isGrab())
+                    return State.grab;
+                else if (isGrabReady())
+                    return State.grabReady;
+            } else if (prevState == State.grab || prevState == State.grabbed) {
+                if (isGrabReleased())
+                    return State.grabRelease;
+                else
+                    return State.grabbed;
             }
             else if (prevState == State.lightning)
             {
                 return State.lightning;
             }
+            else if (prevState == State.futureReady)
+            {
+                if (resetTime + 2.0 < Time.time)
+                    return State.waiting;
+                else if (isFuture())
+                    return State.future;
+                else
+                    return State.futureReady;
+            }
 
         }
-
         return State.waiting;
     }
-
-
 
     /* ----------- State Functions ----------- */
     bool isLightsaberReady()
     {
         // check if hand is in lightsaber ready position
-
+	
+	float spineLength       = Vector3.Distance(globalNeck, globalSpineBase);
+        bool handsLow           = globalLHand.y < (globalSpineBase.y + spineLength) && globalRHand.y < (globalSpineBase.y + spineLength);
+        float handDistance_Y    = Mathf.Abs(globalRHand.y - globalLHand.y);
+        float handDistance_X    = Mathf.Abs(globalRHand.x - globalLHand.x);
+        float handDistance      = Vector3.Distance(globalRHand, globalLHand);
+        
+        if (Mathf.Abs(globalRHand.y - globalLHand.y) < 0.15f && Mathf.Abs(globalRHand.y - globalLHand.y) > 0.03f
+            && Mathf.Abs(globalRHand.x - globalLHand.x) < 0.15f && Mathf.Abs(globalRHand.z - globalLHand.z) < 0.15f
+            && handsLow)
+        {
+            return true;
+        }
+	
         return false;
     }
     bool isLightsaberDrawn()
     {
         // check if hands are in lightsaber drawn position
+	/*/ check if hands are in lightsaber drawn position
+        if (!(Mathf.Abs(globalRHand.y - globalLHand.y) < 0.3f && Mathf.Abs(globalRHand.y - globalLHand.y) > 0.03f
+            && Mathf.Abs(globalRHand.x - globalLHand.x) < 0.3f && Mathf.Abs(globalRHand.z - globalLHand.z) < 0.8f))
+        {
+            // turn lightsaber off
+            lightsaberOn = false;
+            
+        }
+        */
 
-        return false;
+        return true;
     }
     bool isLightningReady()
     {
-
         float spineLength = Vector3.Distance(globalNeck, globalSpineBase);
         float handDistance_Y = Mathf.Abs(globalRHand.y - globalLHand.y);
 
         bool leftRaised  = (globalLHand.y - globalNeck.y < 0.3 && globalLHand.y > (globalSpineBase.y + spineLength / 2.0f) && globalRHand.y < (globalSpineBase.y + spineLength / 2.0f));
-        bool rightRaised = (globalRHand.y - globalNeck.y < 0.3 && globalRHand.y > (globalSpineBase.y + spineLength / 2.0f) && globalLHand.y < (globalSpineBase.y + spineLength / 2.0f));
-        // check left hand.y close to neck.y
-        if ( (leftRaised || rightRaised) && handDistance_Y > 0.4)
+        bool leftExtended = (globalLShoulder.z - globalLHand.z) > 0.4f;
+
+        if (leftExtended && leftRaised && handDistance_Y > 0.4)
             return true;
         else
             return false;
@@ -255,24 +360,118 @@ public class PlayerKinectManager : MonoBehaviour {
     }
     bool isPushReady()
     {
+        float handDistance_Y = Mathf.Abs(globalRHand.y - globalLHand.y);
 
+        bool handsAtShoulderHeight = ( (Mathf.Abs(globalLHand.y - globalLShoulder.y) < 0.2f)  && (Mathf.Abs(globalRHand.y - globalRShoulder.y) < 0.2f) );
+        bool handsAtShoulderDepth = ((Mathf.Abs(globalLHand.z - globalLShoulder.z) < 0.4f) && (Mathf.Abs(globalRHand.z - globalRShoulder.z) < 0.4f));
+        // check if hands are above head
+        if (handsAtShoulderHeight && handsAtShoulderDepth && handDistance_Y < 0.3)
+        {
+            return true;
+        }
         return false;
     }
-    bool isGrabReady()
+    /*
+    bool isPushing()
     {
+        float handDistance_Y = Mathf.Abs(globalRHand.y - globalLHand.y);
 
+        bool handsAtShoulderHeight = ((Mathf.Abs(globalLHand.y - globalLShoulder.y) < 0.2f) && (Mathf.Abs(globalRHand.y - globalRShoulder.y) < 0.2f));
+        bool handsAtShoulderDepth  = ((Mathf.Abs(globalLHand.z - globalLShoulder.z) < 0.4f) && (Mathf.Abs(globalRHand.z - globalRShoulder.z) < 0.4f));
+        // check if hands are above head
+        if (handsAtShoulderHeight && handsAtShoulderDepth && handDistance_Y < 0.3)
+        {
+            return true;
+        }
         return false;
     }
-    bool isFutureReady()
-    {
-
-        return false;
-    }
-
+     */
     bool isPush()
     {
+        float handDistance_Y = Mathf.Abs(globalRHand.y - globalLHand.y);
+
+        bool handsAtShoulderHeight  = ((Mathf.Abs(globalLHand.y - globalLShoulder.y) < 0.2f) && (Mathf.Abs(globalRHand.y - globalRShoulder.y) < 0.2f));
+        bool handsExtended        = ((globalRShoulder.z - globalRHand.z) > 0.45f) && ((globalLShoulder.z - globalLHand.z) > 0.45f);
+        bool handsElbows = (Mathf.Abs(globalRElbow.z - globalRHand.z) < 0.3f) && (Mathf.Abs(globalLElbow.z - globalLHand.z) < 0.3f);
+        // check if hands are extended
+        if (handsAtShoulderHeight && handsExtended && handsElbows && handDistance_Y < 0.3)
+        {
+            return true;
+        }
         return false;
     }
+
+    bool isGrabReady()
+    {
+        float spineLength = Vector3.Distance(globalNeck, globalSpineBase);
+        float handDistance_Y = Mathf.Abs(globalRHand.y - globalLHand.y);
+
+        bool rightRaised = (globalRHand.y - globalNeck.y < 0.3 && globalRHand.y > (globalSpineBase.y + spineLength / 2.0f) && globalLHand.y < (globalSpineBase.y + spineLength / 2.0f));
+        bool rightExtended = (globalRShoulder.z - globalRHand.z) > 0.4f;
+        // check left hand.y close to neck.y
+        if (rightRaised && rightExtended && handDistance_Y > 0.4)
+            return true;
+        else
+            return false;
+    }
+
+    bool isGrabReleased()
+    {
+        float spineLength = Vector3.Distance(globalNeck, globalSpineBase);
+
+        bool rightLowered = (globalRHand.y < (globalSpineBase.y + spineLength / 2.0f));
+        // check left hand.y close to neck.y
+        if (rightLowered)
+            return true;
+        else
+            return false;
+    }
+
+    bool isGrab()
+    {
+        bool headNod = Mathf.Abs(globalHead.x - globalNeck.x) > 0.1;
+        if (headNod) {
+            Debug.Log("Nod");
+            return true;
+        }   
+        else
+            return false;
+        
+        /*
+        float spineLength = Vector3.Distance(globalNeck, globalSpineBase);
+        float handDistance_Y = Mathf.Abs(globalRHand.y - globalLHand.y);
+
+        bool leftRaised  = (globalLHand.y - globalNeck.y < 0.3 && globalLHand.y > (globalSpineBase.y + spineLength / 2.0f));
+        bool leftExtended = (globalLShoulder.z - globalLHand.z) > 0.4f;
+        bool rightRaised = (globalRHand.y - globalNeck.y < 0.3 && globalRHand.y > (globalSpineBase.y + spineLength / 2.0f));
+        bool rightExtended = (globalRShoulder.z - globalRHand.z) > 0.4f;
+        // check left hand.y close to neck.y
+        if (leftRaised && leftExtended && rightRaised && rightExtended && handDistance_Y < 0.2)
+            return true;
+        else
+            return false;
+         */
+    }
+
+    bool isFutureReady()
+    {
+        if ((globalSpineBase.y > 0.5f && globalSpineBase.y < 0.9f))
+        {
+            prevSpineBase = globalSpineBase;
+            return true;
+        }
+        return false;
+    }
+
+    bool isFuture()
+    {
+        bool jumped = (globalSpineBase.y - prevSpineBase.y) > 0.1f && Mathf.Abs(globalSpineBase.x - prevSpineBase.x) < 0.2f;
+        if (jumped)
+            return true;
+        return false;
+    }
+
+
 
 
 
@@ -288,7 +487,7 @@ public class PlayerKinectManager : MonoBehaviour {
         //Debug.Log(Mathf.Abs(globalRHand.y - globalLHand.y));
         //if (Vector3.Distance(globalRHand, globalLHand) < 0.15)
         //Debug.Log( "Local R: " + localRHand.ToString() + " L: " + localLHand.ToString());
-
+        
         //check less strict rules for having lightsaber out
         if (lightsaberOn)
         {
@@ -317,5 +516,19 @@ public class PlayerKinectManager : MonoBehaviour {
         }
     }
 
+    Vector3 KinectToScreenPoints(Vector3 position)
+    {
+        Debug.Log(Screen.width);
+        Debug.Log(Screen.height);
+        int x = (int) (Mathf.Floor((position.x * 0.5f) + 0.5f) * Screen.width);
+        int y = (int) (Mathf.Floor((position.y * -0.5f) + 0.5f) * Screen.height);
+        return new Vector3(x, y, 0);
+    }
+	
 
+    State getState()
+    {
+        return this.state;
+    }
+	
 }

@@ -10,6 +10,8 @@ public class LaserBlast : MonoBehaviour {
     GameObject lightsaber;
     PlayerHealth playerHealth;
 
+    bool deflected = false;
+
     void Start () {
         player = GameObject.Find("Player");
         player.GetComponentInChildren<Collider>();
@@ -18,7 +20,11 @@ public class LaserBlast : MonoBehaviour {
 
     void Update()
     {
-        gameObject.transform.position += 25.0f * Time.smoothDeltaTime * gameObject.transform.forward;
+        if (deflected)
+            gameObject.transform.position += 25.0f * Time.smoothDeltaTime * gameObject.transform.forward * -1;
+        else
+            gameObject.transform.position += 25.0f * Time.smoothDeltaTime * gameObject.transform.forward;
+
     }
 
     void OnTriggerEnter(Collider other)
@@ -29,9 +35,14 @@ public class LaserBlast : MonoBehaviour {
             playerHealth.TakeDamage(attackDamage);
             Destroy(this.gameObject);
         }
-        else if (other.gameObject.name == "lightsaber2" )
+        else if (deflected && other.gameObject.tag == "Enemy")
         {
-            
+            other.gameObject.GetComponent<EnemyHealth>().TakeDamage(100);
+            Destroy(this.gameObject);
+        }
+        else if (other.gameObject.name == "Lightsaber" )
+        {
+            deflected = true;
         }
     }
 }

@@ -8,9 +8,15 @@ public class Lightsaber : MonoBehaviour {
     public Transform start;
     public Transform end;
 
+    private PlayerKinectManager pkm;
+
+    // some saber vars
     private float textureOffset = 0f;
     private bool saber_on = false;
     private Vector3 endOffset;
+    private Vector3 kmRHandPos;
+    private Vector3 kmLHandPos;
+
 
     // default colors to blue
     public static int color_choice = 0;
@@ -20,7 +26,7 @@ public class Lightsaber : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
+        pkm = GetComponentInParent<PlayerKinectManager>();
         lineRenderer = GetComponent<LineRenderer>();
 
         /*
@@ -53,13 +59,8 @@ public class Lightsaber : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
-        //kinect stuff!
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            saber_on = !saber_on;
-        }
 
         if (saber_on)
         {
@@ -100,10 +101,46 @@ public class Lightsaber : MonoBehaviour {
     {
         // find direction of ray created from hands
         Ray lightsaberRay = new Ray(LHand, RHand - LHand);
+
+        //float zAngle = Mathf.Acos((LHand.y - RHand.y) / (Vector3.Distance(LHand, RHand)));
+        //float newZAngle = Mathf.Asin((LHand.x - RHand.x) / (Vector3.Distance(LHand, RHand)));
+        float zAngle = -Mathf.Atan((LHand.x - RHand.x) / (LHand.y - RHand.y));
+        //zAngle = zAngle * 180.0f / Mathf.PI;
+        //newZAngle = newZAngle * 180.0f / Mathf.PI;
+        zAngle = zAngle * 180.0f / Mathf.PI;
+
+        float xAngle = -Mathf.Atan((LHand.z - RHand.z) / (LHand.y - RHand.y));
+        xAngle = xAngle * 180.0f / Mathf.PI;
+
+
+
+        Vector3 angles = gameObject.transform.eulerAngles;
         // rotation our lighsaber accordingly
-        this.gameObject.transform.Rotate(lightsaberRay.direction.normalized);
+        //gameObject.transform.Rotate(angles.x, angles.y, zAngle);
+
+        //Debug.Log("Euler: " + gameObject.transform.eulerAngles + "Z: " + newNewZAngle);//angles + "z: " + zAngle + "hands: " + LHand.y + ", " + RHand.y);
+        //gameObject.transform.Rotate(angles*Time.deltaTime);
+        //gameObject.transform.localEulerAngles.Set(angles.x, angles.y, zAngle);
+        gameObject.transform.rotation = Quaternion.Euler(xAngle, angles.y, zAngle);
+
+        float xChange = LHand.x - kmLHandPos.x;
+        float zChange = LHand.z - kmLHandPos.z;
+        Vector3 newPos = gameObject.transform.position;
+        newPos.x = newPos.x + xChange;
+        newPos.z = newPos.z + zChange;
+        //gameObject.transform.position = newPos;
+        
+    }
+    // set initial positions
+    public void setHandPositions(Vector3 RHand, Vector3 LHand)
+    {
+        kmRHandPos = RHand;
+        kmLHandPos = LHand;
     }
 
-
-
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+            other.gameObject.GetComponent<EnemyHealth>().TakeDamage(100);
+    }
 }
