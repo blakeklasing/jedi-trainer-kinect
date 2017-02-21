@@ -19,14 +19,14 @@ This is where we train members of the Jedi...
 
 ## Lightsaber
 - Features
-  - lightsaber moves with angles calculated with trigonemtry of hand positions. 
-  - kill enemies
-  - reflect lasers
-  - select lightsaber color in menu
+  - Lightsaber moves with angles calculated with trigonemtry of hand positions. 
+  - Kill enemies
+  - Reflect lasers
+  - Select lightsaber color in menu
 - MOTION: 
-  - State 1: hands together, one on top of the other, take lightsaber out. 
-  - State 2: able to bring hands apart about a foot, wielding the lightsaber. 
-  - State 3: hands far apart from eachother, putting lightsaber back.
+  - State 1: Hands together, one on top of the other, take lightsaber out. 
+  - State 2: Able to bring hands apart about a foot, wielding the lightsaber. 
+  - State 3: Hands far apart from eachother, putting lightsaber back.
  
 ## Enemies
   - Features
@@ -58,12 +58,12 @@ This is where we train members of the Jedi...
             
 - Grab objects to throw at enemies
   - MOTION: 
-    - State 1: extend right arm out in front of you
-    - State 2: move arm around to select object
-    - State 3: object is grabbed and can be moved around
+    - State 1: Extend right arm out in front of you
+    - State 2: Move arm around to select object
+    - State 3: Nod head to the side to grab object and move around
   - Features
     - Highlight selection
-    - raycast using the direction of the vector leading from your right elbow
+    - Raycast using the direction of the vector leading from your right elbow
       to your right hand with kinect data.
   - Known Bugs:
      - Enemies don't get highlighted when selected 
@@ -71,16 +71,16 @@ This is where we train members of the Jedi...
 - Send wave of energy  
   - knock down enemies in front of you in cone
   - MOTION:
-    - State 1: bring hands close to shoulders
+    - State 1: Bring hands close to shoulders
     - State 2: Push hands away from shoulders
 
 - Heal
   - give x health
-  - MOTION: raise both hands
+  - MOTION: Raise both hands
 
 - See in the future  
   - Travels between a planet during the Republic era and the Empire era.
   - MOTION:
-    - State 1: semi-crouched position
+    - State 1: Semi-crouched position
     - State 2: jump!
 
